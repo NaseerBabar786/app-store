@@ -1,8 +1,8 @@
 {
   "store": {
-    "name": "Bulk Bazaar App Store",
-    "tagline": "Free apps from Bulk Bazaar",
-    "developer": "Bulk Bazaar App Store"
+    "name": "App Bazaar",
+    "tagline": "Free apps from App Bazaar",
+    "developer": "App Bazaar"
   },
   "apps": [
     {

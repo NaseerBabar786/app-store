@@ -1,4 +1,4 @@
-# Bulk Bazaar App Store
+# App Bazaar
 
 A small "Play Store" style website that lists every app you build.
 

@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#ffffff">
 <link rel="icon" href="icons/store-icon.svg" type="image/svg+xml">
-<title>Bulk Bazaar App Store</title>
+<title>App Bazaar</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap">
@@ -145,6 +145,7 @@ main{padding-block:20px 48px;display:grid;gap:40px}
 .avatar{width:40px;height:40px;border-radius:50%;border:0;background:var(--green);color:#fff;font-weight:500;font-size:1.05rem;cursor:pointer;display:grid;place-items:center}
 .avatar:hover{box-shadow:0 0 0 4px var(--hover)}
 .avatar svg{width:24px;height:24px}
+.avatar img{width:100%;height:100%;border-radius:50%;object-fit:cover;display:block}
 .menu{position:absolute;right:0;top:calc(100% + 8px);width:min(340px,calc(100vw - 32px));background:var(--bg);border-radius:12px;box-shadow:0 1px 3px rgba(60,64,67,.3),0 4px 8px 3px rgba(60,64,67,.15);padding:8px 0;z-index:60}
 .menu .who{display:flex;gap:14px;align-items:center;padding:12px 20px 16px;border-bottom:1px solid var(--line)}
 .menu .who .avatar{width:44px;height:44px;cursor:default}
@@ -186,7 +187,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
 
 <div class="topbar">
   <div class="wrap">
-    <a class="logo" href="#" aria-label="Bulk Bazaar App Store home"><img src="icons/store-icon.svg" alt="" width="36" height="36"><span>Bulk Bazaar <b>App Store</b></span></a>
+    <a class="logo" href="#" aria-label="App Bazaar home"><img src="icons/store-icon.svg" alt="" width="36" height="36"><span>App <b>Bazaar</b></span></a>
     <nav class="tabs" role="tablist" aria-label="Store sections">
       <button class="tab" role="tab" data-tab="app" aria-selected="true">Apps</button>
       <button class="tab" role="tab" data-tab="game" aria-selected="false">Games</button>
@@ -197,8 +198,8 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
     <div class="acct">
       <button class="avatar" id="acctBtn" aria-haspopup="true" aria-expanded="false" aria-label="Your account"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 12a4.5 4.5 0 100-9 4.5 4.5 0 000 9zm0 2c-4 0-8 2-8 5v2h16v-2c0-3-4-5-8-5z"/></svg></button>
       <div class="menu" id="menu" hidden>
-        <div class="who"><span class="avatar"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 12a4.5 4.5 0 100-9 4.5 4.5 0 000 9zm0 2c-4 0-8 2-8 5v2h16v-2c0-3-4-5-8-5z"/></svg></span><span><b>Guest</b><small>Saved on this device only</small></span></div>
-        <div class="signin"><button id="signinBtn" type="button">Sign in</button><small id="signinNote">Accounts are coming soon. Your list stays on this device for now.</small></div>
+        <div class="who"><span class="avatar" id="whoAvatar"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 12a4.5 4.5 0 100-9 4.5 4.5 0 000 9zm0 2c-4 0-8 2-8 5v2h16v-2c0-3-4-5-8-5z"/></svg></span><span><b id="whoName">Guest</b><small id="whoSub">Saved on this device only</small></span></div>
+        <div class="signin"><button id="signinBtn" type="button">Sign in with Google</button><button id="signoutBtn" type="button" hidden>Sign out</button><small id="signinNote">Sign in to keep My apps and Wishlist on all your devices.</small></div>
         <hr>
         <a href="#library"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>My apps &amp; updates<span class="cnt" id="libCount"></span></a>
         <a href="#wishlist"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M6 3h12v18l-6-4-6 4z"/></svg>Wishlist<span class="cnt" id="wishCount"></span></a>
@@ -217,8 +218,9 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
   </div>
 </div>
 <main class="wrap" id="view"></main>
-<footer><div class="wrap"><span>© 2026 Bulk Bazaar App Store</span><span>Free apps for Android phones, tablets and TVs</span></div></footer>
+<footer><div class="wrap"><span>© 2026 App Bazaar</span><span>Free apps for Android phones, tablets and TVs</span></div></footer>
 
+<script src="firebase-config.js"></script>
 <script>
 const LINK_LABELS = { android: 'Install', web: 'Open web app', ios: 'Get for iPhone', windows: 'Download for Windows', mac: 'Download for Mac', source: 'Source code' };
 const TAB_NAMES = { app: 'apps', game: 'games', tv: 'TV apps' };
@@ -226,9 +228,10 @@ let DATA = { store: {}, apps: [] }, tab = 'app', view = 'foryou', cat = null, ch
 const $ = s => document.querySelector(s);
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const KEY = 'bbas-account';
+const PERSON_SVG = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 12a4.5 4.5 0 100-9 4.5 4.5 0 000 9zm0 2c-4 0-8 2-8 5v2h16v-2c0-3-4-5-8-5z"/></svg>';
 function loadAcct() { try { return Object.assign({ library: {}, wishlist: [] }, JSON.parse(localStorage.getItem(KEY) || '{}')); } catch { return { library: {}, wishlist: [] }; } }
 let ACCT = loadAcct();
-function saveAcct() { try { localStorage.setItem(KEY, JSON.stringify(ACCT)); } catch {} updateCounts(); }
+function saveAcct() { try { localStorage.setItem(KEY, JSON.stringify(ACCT)); } catch {} updateCounts(); pushCloud(); }
 function updateCounts() {
   const l = Object.keys(ACCT.library).filter(id => DATA.apps.some(a => a.id === id)).length, w = ACCT.wishlist.filter(id => DATA.apps.some(a => a.id === id)).length;
   $('#libCount').textContent = l || ''; $('#wishCount').textContent = w || '';
@@ -389,12 +392,60 @@ function closeMenu() { $('#menu').hidden = true; $('#acctBtn').setAttribute('ari
 $('#acctBtn').addEventListener('click', e => { e.stopPropagation(); const open = $('#menu').hidden; $('#menu').hidden = !open; $('#acctBtn').setAttribute('aria-expanded', String(open)); $('#clearNote').textContent = ''; });
 document.addEventListener('click', e => { if (!e.target.closest('.acct')) closeMenu(); });
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
-$('#signinBtn').addEventListener('click', () => { $('#signinNote').textContent = 'Sign-in is not switched on yet. Your list is saved on this device.'; });
+// sign-in (Firebase + Google). Turned on by filling in firebase-config.js
+let FB = null, USER = null;
+const loadScript = src => new Promise((ok, no) => { const s = document.createElement('script'); s.src = src; s.onload = ok; s.onerror = no; document.head.appendChild(s); });
+function renderWho() {
+  const img = u => u.photoURL ? `<img src="${esc(u.photoURL)}" alt="" referrerpolicy="no-referrer">` : esc((u.displayName || u.email || '?')[0].toUpperCase());
+  $('#whoAvatar').innerHTML = USER ? img(USER) : PERSON_SVG;
+  $('#acctBtn').innerHTML = USER ? img(USER) : PERSON_SVG;
+  $('#whoName').textContent = USER ? (USER.displayName || 'Signed in') : 'Guest';
+  $('#whoSub').textContent = USER ? (USER.email || '') : (FB ? 'Not signed in' : 'Saved on this device only');
+  $('#signinBtn').hidden = !!USER; $('#signoutBtn').hidden = !USER;
+  $('#signinNote').textContent = USER ? 'My apps and Wishlist are saved to your account.' : 'Sign in to keep My apps and Wishlist on all your devices.';
+}
+function pushCloud() {
+  if (!FB || !USER) return;
+  FB.db.collection('users').doc(USER.uid).set({ library: ACCT.library, wishlist: ACCT.wishlist, updated: new Date().toISOString() }, { merge: true })
+    .catch(() => { $('#signinNote').textContent = 'Could not save to your account. Your list is still saved on this device.'; });
+}
+async function initAuth() {
+  const cfg = window.FIREBASE_CONFIG;
+  if (!cfg || !cfg.apiKey) return;
+  try {
+    const v = 'https://cdn.jsdelivr.net/npm/firebase@10.12.2/';
+    await loadScript(v + 'firebase-app-compat.js');
+    await Promise.all([loadScript(v + 'firebase-auth-compat.js'), loadScript(v + 'firebase-firestore-compat.js')]);
+    firebase.initializeApp(cfg);
+    FB = { auth: firebase.auth(), db: firebase.firestore() };
+  } catch { $('#signinNote').textContent = 'Sign-in could not load. Check your connection and refresh.'; return; }
+  renderWho();
+  FB.auth.onAuthStateChanged(async u => {
+    USER = u; renderWho();
+    if (!u) return;
+    try {
+      const snap = await FB.db.collection('users').doc(u.uid).get();
+      const r = snap.exists ? snap.data() : {};
+      ACCT = { library: Object.assign({}, r.library || {}, ACCT.library), wishlist: [...new Set([...(r.wishlist || []), ...ACCT.wishlist])] };
+      saveAcct(); route();
+    } catch { $('#signinNote').textContent = 'Signed in, but your saved list could not load yet.'; }
+  });
+}
+$('#signinBtn').addEventListener('click', () => {
+  if (!FB) { $('#signinNote').textContent = 'Sign-in is not switched on yet. Your list is saved on this device.'; return; }
+  FB.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).catch(e => {
+    if (e.code !== 'auth/popup-closed-by-user') $('#signinNote').textContent = 'Sign-in did not finish. Please try again.';
+  });
+});
+$('#signoutBtn').addEventListener('click', () => {
+  FB.auth.signOut().then(() => { ACCT = { library: {}, wishlist: [] }; try { localStorage.removeItem(KEY); } catch {} updateCounts(); route(); });
+});
 $('#clearData').addEventListener('click', () => {
   if ($('#clearData').dataset.armed) { ACCT = { library: {}, wishlist: [] }; saveAcct(); delete $('#clearData').dataset.armed; $('#clearNote').textContent = 'Cleared.'; route(); }
   else { $('#clearData').dataset.armed = '1'; $('#clearNote').textContent = 'Tap again to clear My apps and Wishlist.'; }
 });
 
+initAuth();
 fetch('apps.json').then(r => r.json()).then(d => { DATA = d; updateCounts(); route(); })
   .catch(() => { $('#view').innerHTML = empty('Could not load the app list', 'Keep apps.json in the same folder as this page.'); });
 </script>
