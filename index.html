@@ -132,26 +132,20 @@ footer a{color:#fff}
       <input id="q" type="search" placeholder="Search apps, e.g. live TV" aria-label="Search apps" autocomplete="off">
       <button type="submit" aria-label="Search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/></svg></button>
     </form>
-    <nav aria-label="Main"><a href="https://www.bulkbazaar.ca/">bulkbazaar.ca</a></nav>
   </div>
 </div>
 <div class="subnav">
   <div class="wrap">
     <span class="cats" id="cats"></span>
-    <span class="sep" aria-hidden="true"></span>
-    <a href="https://www.bulkbazaar.ca/#shop">Shop products</a>
-    <a href="https://www.bulkbazaar.ca/#delivery">Delivery</a>
-    <a href="https://www.bulkbazaar.ca/#quote">Contact</a>
   </div>
 </div>
 <div class="hero" id="hero">
   <div class="wrap">
-    <p class="eyebrow">Bulk Bazaar App Store &middot; Trenton, Ontario</p>
+    <p class="eyebrow">Bulk Bazaar App Store</p>
     <h1>Free apps from Bulk Bazaar</h1>
     <p class="lead">Download our free apps for Android phones, tablets and TVs. No sign-up, no ads.</p>
     <div class="cta">
       <a class="btn btn-primary" href="#all-apps">Browse apps</a>
-      <a class="btn btn-ghost" href="https://www.bulkbazaar.ca/">Visit bulkbazaar.ca</a>
     </div>
     <div class="facts"><div><b id="appCount">3 apps</b>free to download</div><div><b>Android</b>phone, tablet &amp; TV</div></div>
   </div>
@@ -159,11 +153,10 @@ footer a{color:#fff}
 <main class="wrap" id="view"></main>
 <div class="wrap">
   <footer>
-    <span>&copy; Bulk Bazaar Inc. &middot; 18 Stockdale Rd, Trenton, ON</span>
-    <span><a href="https://www.bulkbazaar.ca/">www.bulkbazaar.ca</a> &middot; 1 437 602 6500 &middot; <a href="https://wa.me/14376026500">WhatsApp us</a></span>
+    <span>&copy; 2026 Bulk Bazaar App Store</span>
+    <span>Free apps for Android phones, tablets and TVs</span>
   </footer>
 </div>
-<a class="wa" href="https://wa.me/14376026500?text=Hi%20Bulk%20Bazaar%2C%20I%20have%20a%20question%20about%20your%20apps." aria-label="Chat with us on WhatsApp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.5 8.5 0 01-12.6 7.4L3 20.5l1.7-5.2A8.5 8.5 0 1121 11.5z"/></svg><span>WhatsApp us</span></a>
 <script>
 const FALLBACK_NOTE = 'Could not load apps.json. Keep apps.json in the same folder as this page.';
 let DATA = { store: {}, apps: [] }, cat = 'All', query = '';
@@ -207,7 +200,7 @@ function renderHome() {
     <section id="all-apps"><p class="eyebrow">${browsing ? 'Free to download' : 'Search results'}</p><h2>${browsing ? 'All apps' : `${list.length} app${list.length === 1 ? '' : 's'} found`}</h2>
       ${list.length ? `<div class="grid">${list.map(tile).join('')}</div>` : `<p class="empty">No apps match "${esc(query)}". Try another word or pick All apps.</p>`}
     </section>
-    ${browsing ? `<section><p class="eyebrow">Why our apps</p><h2>Simple, free and made in Ontario</h2><div class="why">
+    ${browsing ? `<section><p class="eyebrow">Why our apps</p><h2>Simple and free</h2><div class="why">
       <div><h3>Free to use</h3><p>No sign-up, no subscriptions and no ads in the way.</p></div>
       <div><h3>Works on your TV</h3><p>Our apps run on Android phones, tablets and Android / Google TV.</p></div>
       <div><h3>Updates itself</h3><p>Install once and the app tells you when a new version is ready.</p></div>

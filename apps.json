@@ -2,8 +2,7 @@
   "store": {
     "name": "Bulk Bazaar App Store",
     "tagline": "Free apps from Bulk Bazaar",
-    "developer": "Bulk Bazaar Inc.",
-    "website": "https://www.bulkbazaar.ca"
+    "developer": "Bulk Bazaar App Store"
   },
   "apps": [
     {
@@ -11,11 +10,17 @@
       "name": "Live TV",
       "tagline": "Free live TV channels by country, on your phone or TV",
       "category": "Entertainment",
-      "icon": { "image": "icons/live-tv.svg", "color": "#1E1E2E" },
+      "icon": {
+        "image": "icons/live-tv.svg",
+        "color": "#1E1E2E"
+      },
       "featured": true,
       "version": "1.8.36",
       "updated": "2026-10-01",
-      "platforms": ["Android", "Android TV"],
+      "platforms": [
+        "Android",
+        "Android TV"
+      ],
       "description": "Watch live channels that broadcasters stream publicly, sorted by country. Opens on Pakistani, Indian (Hindi, Urdu, Punjabi) and Canadian channels, with a channel grid, logos, search, favourites and a full-screen player. Works with TV remotes, supports picture-in-picture, and can also play your own M3U playlist. The app updates itself when a new version is out.",
       "whatsNew": "Version 1.8.36 with an updated channel list.",
       "links": {
@@ -28,11 +33,17 @@
       "name": "Stream Player Plus",
       "tagline": "Play your own M3U playlists on phones, tablets and Android TV",
       "category": "Video Players",
-      "icon": { "image": "icons/stream-player-plus.png", "color": "#1C2333" },
+      "icon": {
+        "image": "icons/stream-player-plus.png",
+        "color": "#1C2333"
+      },
       "featured": true,
       "version": "1.0.1",
       "updated": "2026-10-01",
-      "platforms": ["Android", "Android TV"],
+      "platforms": [
+        "Android",
+        "Android TV"
+      ],
       "description": "A simple, fast player for the IPTV playlists you already have. Add a playlist link (M3U or M3U8) or open a playlist file, and your channels show in a clean grid with groups, search, favourites and channel numbers. Full TV remote support, picture-in-picture on phones, and no account, ads or tracking.",
       "whatsNew": "Multiple playlists, switchable in Settings.",
       "links": {
@@ -44,10 +55,16 @@
       "name": "Live Cam",
       "tagline": "Watch your CCTV and IP cameras live, on phone or Google TV",
       "category": "Home & Security",
-      "icon": { "image": "icons/live-cam.svg", "color": "#10151F" },
+      "icon": {
+        "image": "icons/live-cam.svg",
+        "color": "#10151F"
+      },
       "version": "0.3.8",
       "updated": "2026-10-01",
-      "platforms": ["Android", "Google TV"],
+      "platforms": [
+        "Android",
+        "Google TV"
+      ],
       "description": "See every camera on your network live in one grid, then tap or press OK for full screen with sound. Add a camera by brand and IP address (Hikvision, Dahua, Amcrest, Lorex, Reolink, Tapo, Uniview, ONVIF and more) or paste any RTSP or HTTP address. Camera logins stay on your device, and the app updates itself.",
       "whatsNew": "Camera grid that wraps to fit any screen.",
       "links": {

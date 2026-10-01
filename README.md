@@ -19,13 +19,10 @@ Copy one block inside `"apps"` in apps.json and change the fields:
 | links | any of `web`, `android`, `ios`, `windows`, `mac`, `source`, each a URL |
 | example | remove this line once the app is real |
 
-## Upload to apps.bulkbazaar.ca with cPanel (GoDaddy)
-1. cPanel > Domains > Create A New Domain (or Subdomains): enter `apps.bulkbazaar.ca`, keep the suggested folder (e.g. `public_html/apps.bulkbazaar.ca`), Submit.
-2. cPanel > File Manager > open that folder > Upload `apps-bulkbazaar-upload.zip` > right-click it > Extract. Delete the zip afterwards.
-3. Optional: upload `bulkbazaar-apps-page/index.html` into `public_html/apps/` so www.bulkbazaar.ca/apps forwards to the store, and add an "Apps" link to your site menu.
-4. cPanel > Security > SSL/TLS Status > Run AutoSSL so https works on the new subdomain.
+## Hosting
+Live at https://apps.bulkbazaar.ca from GitHub repo NaseerBabar786/app-store (GitHub Pages, branch main). It is a separate site from www.bulkbazaar.ca and only borrows its look.
 
-## Or put it online with GitHub Pages
+## Put a copy online with GitHub Pages
 1. Create a GitHub repository and upload `index.html` and `apps.json`.
 2. Settings > Pages > Source: "Deploy from a branch", branch `main`, folder `/`.
 3. Your store is live at `https://<your-username>.github.io/<repo-name>/`.
