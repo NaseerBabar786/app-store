@@ -7,260 +7,302 @@
 <link rel="icon" href="icons/store-icon.svg" type="image/svg+xml">
 <title>Bulk Bazaar App Store</title>
 <style>
-/* Layout: (navy top bar with logo + search, sub-nav strip, light-blue hero, white rounded sections, navy footer). Single light theme like the main site */
+/* Layout: Play-store structure. Navy top bar (mark, Apps/Games/TV tabs, search), view chips (For you / Top charts / Categories), featured banner carousel, horizontal app rows, ranked top chart; app page with install button, banner gallery and "More apps" sidebar. Colours from the Bulk Bazaar theme, single light theme */
 :root{
-  --bg:#eef4f7; --surface:#ffffff; --ink:#0a2a38; --muted:#4d6673; --line:#d3e0e7;
-  --brand:#002a3e; --accent:#98cfe8; --accent-ink:#0a2a38; --soft:#f7fafa; --link:#00648c;
-  --orange:#3391bc; --navy:#0a3d55; --price:#00648c;
-  --display:Arial,"Helvetica Neue",Helvetica,sans-serif;
-  --body:Arial,"Helvetica Neue",Helvetica,sans-serif;
+  --bg:#ffffff; --soft:#f4f8fa; --ink:#0a2a38; --muted:#4d6673; --line:#d3e0e7;
+  --brand:#002a3e; --navy:#0a3d55; --accent:#98cfe8; --link:#00648c; --link-dark:#00506f; --chip:#e3f2fa;
+  --font:Arial,"Helvetica Neue",Helvetica,sans-serif;
   color-scheme:light;
 }
 *{box-sizing:border-box}
 [hidden]{display:none!important}
-body{background:var(--bg);color:var(--ink);font:400 15px/1.5 var(--body);padding-inline:16px}
-.wrap{max-width:1080px;margin-inline:auto}
-h1,h2,h3{font-family:var(--display);font-weight:700;margin:0;text-wrap:balance}
-h1{font-size:clamp(1.9rem,4.2vw,2.9rem);line-height:1.12}
-h2{font-size:clamp(1.4rem,2.6vw,1.9rem);line-height:1.2;margin-bottom:16px}
-h3{font-size:1.05rem;line-height:1.3}
-p{margin:0}
+body{background:var(--bg);color:var(--ink);font:400 15px/1.5 var(--font)}
 a{color:inherit}
 button,input{font:inherit;color:inherit}
 :focus-visible{outline:3px solid var(--link);outline-offset:2px}
-.eyebrow{font:700 .72rem/1 var(--body);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
-.btn{display:inline-flex;align-items:center;gap:8px;padding:.7rem 1.3rem;font:600 .95rem/1 var(--body);text-decoration:none;border-radius:999px;border:1px solid #7fbad6;cursor:pointer}
-.btn-primary{background:var(--accent);color:var(--accent-ink)}
-.btn-primary:hover{background:#82c0dd}
-.btn-ghost{background:#fff;color:var(--ink);border-color:#888c8c}
-.btn-ghost:hover{background:var(--soft)}
-@media (prefers-reduced-motion:no-preference){.btn{transition:transform .15s}.btn:hover{transform:translateY(-2px)}}
+h1,h2,h3{margin:0;font-weight:700;text-wrap:balance}
+p{margin:0}
+.wrap{max-width:1200px;margin-inline:auto;padding-inline:24px}
 
-.topbar{background:var(--brand);color:#fff;margin-inline:-16px;padding:8px 16px;position:sticky;top:env(safe-area-inset-top,0px);z-index:40}
-.topbar .bar{display:flex;align-items:center;gap:16px}
+/* top bar */
+.topbar{background:var(--brand);color:#fff;position:sticky;top:env(safe-area-inset-top,0px);z-index:40;box-shadow:0 1px 0 rgba(0,0,0,.2)}
+.topbar .wrap{display:flex;align-items:center;gap:28px;min-height:64px}
 .logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:#fff;flex:none}
-.logo img{display:block;height:40px;width:40px}
-.logo span{display:grid;font:700 1.05rem/1.1 var(--display)}
-.logo b{color:var(--accent);font-size:.85rem;letter-spacing:.08em;text-transform:uppercase}
-.search{flex:1;display:flex;min-width:0}
-.search input{flex:1;min-width:0;border:0;border-radius:6px 0 0 6px;padding:.65rem .9rem;background:#fff;color:var(--ink)}
-.search button{border:0;background:var(--accent);color:var(--brand);width:46px;border-radius:0 6px 6px 0;cursor:pointer;display:grid;place-items:center}
-.search button svg{width:20px;height:20px}
-.topbar nav{display:flex;gap:20px}
-.topbar nav a{color:#fff;font-weight:600;white-space:nowrap;text-decoration:none}
-.topbar nav a:hover{color:var(--accent)}
-.subnav{background:var(--navy);color:#fff;margin-inline:-16px;padding:0 16px;font-size:.88rem}
-.subnav .wrap{display:flex;gap:4px;overflow-x:auto;white-space:nowrap;scrollbar-width:none}
-.subnav a,.subnav .cat{color:#fff;text-decoration:none;padding:9px 10px;border:1px solid transparent;border-radius:2px;background:none;cursor:pointer;font-size:.88rem}
-.subnav a:hover,.subnav .cat:hover{border-color:#fff}
-.subnav .cat[aria-pressed="true"]{border-color:var(--accent);color:var(--accent);font-weight:700}
-.subnav .sep{flex:none;width:1px;background:rgba(255,255,255,.25);margin:8px 6px}
-.cats{display:contents}
+.logo img{width:36px;height:36px;display:block}
+.logo span{display:grid;font:700 1rem/1.1 var(--font)}
+.logo b{color:var(--accent);font-size:.78rem;letter-spacing:.08em;text-transform:uppercase}
+.tabs{display:flex;gap:4px;align-self:stretch}
+.tab{background:none;border:0;color:#cfe3ee;font-weight:700;padding:0 14px;cursor:pointer;border-bottom:3px solid transparent;border-top:3px solid transparent}
+.tab:hover{color:#fff}
+.tab[aria-selected="true"]{color:#fff;border-bottom-color:var(--accent)}
+.search{margin-left:auto;display:flex;align-items:center;background:#fff;border-radius:999px;padding:0 6px 0 14px;flex:0 1 320px;min-width:0}
+.search svg{width:20px;height:20px;color:var(--muted);flex:none}
+.search input{border:0;background:none;padding:.6rem .6rem;min-width:0;flex:1;color:var(--ink)}
+.search input:focus{outline:none}
+.search:focus-within{box-shadow:0 0 0 3px var(--accent)}
 
-main{padding-block:16px 24px}
-main>section{background:var(--surface);border-radius:8px;padding:24px;margin-block:16px}
-.hero{background:linear-gradient(180deg,#cfe5f1 0%,#e6f2f8 55%,var(--bg) 100%);color:var(--ink);margin-inline:-16px;padding:36px 16px 44px}
-.hero .wrap{display:grid;gap:14px}
-.hero h1{margin-block:2px 2px}
-.hero .eyebrow{color:var(--ink)}
-.hero p.lead{font-size:1.15rem;max-width:34rem;color:#24404f}
-.hero .cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:12px}
-.hero .facts{display:flex;gap:28px;flex-wrap:wrap;margin-top:16px;font-size:.9rem;color:#24404f}
-.hero .facts b{display:block;font:700 1.3rem/1.2 var(--display);color:var(--price)}
+/* view chips */
+.views{border-bottom:1px solid var(--line);background:var(--bg)}
+.views .wrap{display:flex;gap:10px;padding-block:14px;overflow-x:auto;scrollbar-width:none}
+.vchip{flex:none;border:1px solid var(--line);background:var(--bg);border-radius:999px;padding:.45rem 1rem;font-weight:600;font-size:.9rem;cursor:pointer;color:var(--muted)}
+.vchip:hover{background:var(--soft)}
+.vchip[aria-pressed="true"]{background:var(--chip);border-color:#b9d9ea;color:var(--link-dark)}
 
-.featured{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
-.feat{border-radius:8px;padding:20px;display:flex;gap:16px;align-items:center;text-decoration:none;background:var(--soft);border:1px solid var(--line);border-top:3px solid var(--orange)}
-.feat:hover{border-color:#7fbad6;border-top-color:var(--orange)}
-.feat .eyebrow{color:var(--link)}
-.feat h3{font-size:1.3rem;margin-block:4px 2px}
-.feat p{color:var(--muted);font-size:.92rem}
-.feat .meta{min-width:0}
+main{padding-block:28px 48px;display:grid;gap:36px}
+.sec-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}
+.sec-head h2{font-size:1.35rem}
+.sec-head p{color:var(--muted);font-size:.9rem}
+.arrows{display:flex;gap:8px}
+.arrow{width:36px;height:36px;border-radius:50%;border:1px solid var(--line);background:var(--bg);cursor:pointer;display:grid;place-items:center;color:var(--ink)}
+.arrow:hover{background:var(--soft)}
+.arrow svg{width:18px;height:18px}
 
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:16px}
-.tile{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:16px;display:flex;flex-direction:column;gap:10px;text-decoration:none;min-width:0}
-.tile:hover{border-color:#7fbad6}
-.tile .meta{display:grid;gap:4px;min-width:0}
-.tile b{font-weight:700;color:var(--ink)}
-.tile span{color:var(--muted);font-size:.88rem}
-.tile small{color:var(--link);font-weight:700;font-size:.85rem}
+/* scrolling rows */
+.row{display:grid;grid-auto-flow:column;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding-bottom:4px}
+.row::-webkit-scrollbar{display:none}
+.row>*{scroll-snap-align:start}
+.hero-row{grid-auto-columns:min(560px,86%)}
+.card-row{grid-auto-columns:min(300px,72%)}
 
-.icon{flex:none;width:64px;height:64px;border-radius:14px;background:var(--c);color:#fff;display:grid;place-items:center;font:700 30px var(--display);overflow:hidden}
+.hero{position:relative;display:block;border-radius:16px;overflow:hidden;aspect-ratio:1024/500;text-decoration:none;color:#fff;background:var(--c,#0a3d55)}
+.hero img.bn{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.hero .over{position:absolute;inset:auto 0 0 0;padding:70px 18px 16px;background:linear-gradient(rgba(0,20,30,0),rgba(0,20,30,.75) 45%,rgba(0,20,30,.95));display:flex;align-items:center;gap:12px}
+.hero .over .t{min-width:0;flex:1}
+.hero .over b{display:block;font-size:1.05rem}
+.hero .over small{color:#cfe3ee;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hero .get{background:#fff;color:var(--link-dark);font-weight:700;border-radius:999px;padding:.45rem 1.1rem;font-size:.9rem;flex:none}
+
+.card{display:grid;gap:10px;text-decoration:none;min-width:0}
+.card .thumb{border-radius:12px;overflow:hidden;aspect-ratio:1024/500;background:var(--c,#0a3d55)}
+.card .thumb img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .25s}
+.card:hover .thumb img{transform:scale(1.03)}
+.card .info{display:flex;gap:12px;align-items:center;min-width:0}
+.card .info div{min-width:0}
+.card b{display:block;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.card small{color:var(--muted);font-size:.85rem}
+
+.icon{flex:none;width:56px;height:56px;border-radius:12px;background:var(--c);color:#fff;display:grid;place-items:center;font:700 26px var(--font);overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.15)}
 .icon img{width:100%;height:100%;object-fit:cover}
-.icon.lg{width:104px;height:104px;border-radius:22px;font-size:50px}
-.icon.sm{width:72px;height:72px}
-.tag{display:inline-block;font-size:.8rem;font-weight:600;padding:3px 10px;border-radius:999px;background:#e3f2fa;border:1px solid #b9d9ea;color:var(--ink)}
-.empty{color:var(--muted);padding:12px 0}
-.notice{background:#eaf5fb;border:1px solid #b9d9ea;border-radius:6px;color:#24404f;padding:10px 14px;font-size:.88rem}
+.icon.s{width:44px;height:44px;border-radius:10px;font-size:20px}
+.icon.xl{width:120px;height:120px;border-radius:24px;font-size:56px;box-shadow:0 2px 10px rgba(0,0,0,.18)}
 
-.back{display:inline-flex;gap:6px;color:var(--link);text-decoration:none;font-weight:600}
-.dhead{display:flex;gap:22px;align-items:center;flex-wrap:wrap;margin-top:14px}
-.dhead h1{margin:0}
-.dhead .dev{color:var(--link);font-weight:700}
-.dhead .sub{color:var(--muted)}
-.dfacts{display:flex;flex-wrap:wrap;margin-block:20px;border:1px solid var(--line);border-radius:8px;background:var(--soft)}
-.fact{flex:1 1 120px;padding:12px 16px;text-align:center;border-right:1px solid var(--line)}
-.fact:last-child{border-right:0}
-.fact b{display:block;font-weight:700;font-variant-numeric:tabular-nums}
-.fact small{color:var(--muted);font-size:.8rem}
-.actions{display:flex;gap:10px;flex-wrap:wrap}
-.prose{max-width:65ch;display:grid;gap:22px;margin-top:24px}
-.prose h2{font-size:1.2rem;margin-bottom:6px}
-.prose p{color:#24404f}
-.why{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px 32px}
-.why div{border-top:3px solid var(--orange);padding-top:12px}
-.why p{color:var(--muted);margin-top:4px}
+/* top chart */
+.ctabs{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
+.chart{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:4px 24px}
+.rank{display:flex;align-items:center;gap:14px;padding:10px 8px;border-radius:12px;text-decoration:none;min-width:0}
+.rank:hover{background:var(--soft)}
+.rank .n{width:22px;text-align:center;font-weight:600;color:var(--muted);font-variant-numeric:tabular-nums;flex:none}
+.rank .t{min-width:0}
+.rank b{display:block;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rank small{color:var(--muted);font-size:.85rem;display:block}
+.free{color:var(--link);font-weight:700;font-size:.85rem}
 
-footer{background:var(--navy);color:#dfe5e8;border-radius:8px;padding:20px 24px;margin-bottom:24px;font-size:.88rem;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
-footer a{color:#fff}
-.wa{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:50;display:flex;align-items:center;gap:8px;background:#1f9d55;color:#fff;text-decoration:none;font:600 .95rem/1 var(--body);padding:.85rem 1.1rem;border-radius:99px;box-shadow:0 6px 18px rgba(0,0,0,.25)}
-.wa svg{width:22px;height:22px;flex:none}
-.wa:hover{background:#178a49}
-@media (max-width:480px){.wa span{display:none}.wa{padding:.9rem}}
-@media (max-width:760px){
-  .topbar .bar{flex-wrap:wrap}
-  .search{order:3;flex-basis:100%}
-  .topbar nav{margin-left:auto}
-  main>section{padding:18px}
-  .fact{flex-basis:45%;border-right:0}
+/* categories */
+.cats{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
+.catcard{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:18px;border:1px solid var(--line);border-radius:12px;background:var(--soft);cursor:pointer;text-align:left}
+.catcard:hover{border-color:#7fbad6}
+.catcard b{font-size:1rem}
+.catcard small{color:var(--muted)}
+
+.empty{border:1px dashed var(--line);border-radius:16px;padding:40px 24px;text-align:center;color:var(--muted);display:grid;gap:6px;justify-items:center}
+.empty b{color:var(--ink);font-size:1.15rem}
+
+/* app page */
+.app{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:48px;align-items:start}
+.ahead{display:flex;justify-content:space-between;gap:24px;align-items:flex-start}
+.ahead h1{font-size:clamp(2rem,5vw,3.2rem);line-height:1.08}
+.ahead .dev{color:var(--link);font-weight:700;margin-top:8px}
+.ahead .tag{color:var(--muted);margin-top:4px}
+.stats{display:flex;flex-wrap:wrap;margin-block:22px}
+.stat{padding:0 22px;border-left:1px solid var(--line);display:grid;justify-items:center;gap:2px;text-align:center}
+.stat:first-child{padding-left:0;border-left:0;justify-items:start;text-align:left}
+.stat b{font-weight:700;font-variant-numeric:tabular-nums}
+.stat small{color:var(--muted);font-size:.8rem}
+.btns{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.install{background:var(--link);color:#fff;border:0;border-radius:8px;padding:.75rem 2.4rem;font-weight:700;text-decoration:none;display:inline-block}
+.install:hover{background:var(--link-dark)}
+.ghost{background:none;border:0;color:var(--link);font-weight:700;display:inline-flex;align-items:center;gap:6px;cursor:pointer;text-decoration:none;padding:.6rem .4rem}
+.ghost svg{width:20px;height:20px}
+.toast{color:var(--muted);font-size:.85rem}
+.gallery{display:grid;grid-auto-flow:column;grid-auto-columns:min(480px,85%);gap:12px;overflow-x:auto;scrollbar-width:thin;margin-top:28px}
+.gallery img{width:100%;border-radius:12px;display:block;border:1px solid var(--line)}
+.block{margin-top:32px;display:grid;gap:10px;max-width:65ch}
+.block h2{font-size:1.3rem}
+.block p{color:#24404f}
+.pills{display:flex;gap:8px;flex-wrap:wrap}
+.pill{border:1px solid var(--line);border-radius:999px;padding:.3rem .8rem;font-size:.85rem;color:var(--muted)}
+.side h2{font-size:1.15rem;margin-bottom:8px}
+.side .rank .n{display:none}
+
+footer{border-top:1px solid var(--line);color:var(--muted);font-size:.85rem}
+footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding-block:20px}
+
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+@media (max-width:900px){.app{grid-template-columns:1fr}.tabs .tab{padding:0 10px}}
+@media (max-width:640px){
+  .wrap{padding-inline:16px}
+  .topbar .wrap{flex-wrap:wrap;gap:0 16px;padding-top:8px}
+  .logo span{display:none}
+  .search{order:3;flex:1 1 100%;margin:8px 0 10px}
+  .tabs{min-height:48px}
+  .arrows{display:none}
+  .ahead .icon.xl{width:72px;height:72px;border-radius:16px;font-size:34px}
+  .stat{padding:0 14px}
 }
 </style>
 </head>
 <body>
 
 <div class="topbar">
-  <div class="wrap bar">
-    <a class="logo" href="#" aria-label="Bulk Bazaar App Store home"><img src="icons/store-icon.svg" alt="" width="40" height="40"><span>Bulk Bazaar<b>App Store</b></span></a>
-    <form class="search" role="search" id="search-form">
-      <input id="q" type="search" placeholder="Search apps, e.g. live TV" aria-label="Search apps" autocomplete="off">
-      <button type="submit" aria-label="Search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/></svg></button>
-    </form>
+  <div class="wrap">
+    <a class="logo" href="#" aria-label="Bulk Bazaar App Store home"><img src="icons/store-icon.svg" alt="" width="36" height="36"><span>Bulk Bazaar<b>App Store</b></span></a>
+    <nav class="tabs" role="tablist" aria-label="Store sections">
+      <button class="tab" role="tab" data-tab="app" aria-selected="true">Apps</button>
+      <button class="tab" role="tab" data-tab="game" aria-selected="false">Games</button>
+      <button class="tab" role="tab" data-tab="tv" aria-selected="false">TV</button>
+    </nav>
+    <label class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/></svg>
+      <input id="q" type="search" placeholder="Search for apps &amp; games" aria-label="Search for apps and games" autocomplete="off"></label>
   </div>
 </div>
-<div class="subnav">
+<div class="views" id="views">
   <div class="wrap">
-    <span class="cats" id="cats"></span>
-  </div>
-</div>
-<div class="hero" id="hero">
-  <div class="wrap">
-    <p class="eyebrow">Bulk Bazaar App Store</p>
-    <h1>Free apps from Bulk Bazaar</h1>
-    <p class="lead">Download our free apps for Android phones, tablets and TVs. No sign-up, no ads.</p>
-    <div class="cta">
-      <a class="btn btn-primary" href="#all-apps">Browse apps</a>
-    </div>
-    <div class="facts"><div><b id="appCount">3 apps</b>free to download</div><div><b>Android</b>phone, tablet &amp; TV</div></div>
+    <button class="vchip" data-view="foryou" aria-pressed="true">For you</button>
+    <button class="vchip" data-view="charts" aria-pressed="false">Top charts</button>
+    <button class="vchip" data-view="categories" aria-pressed="false">Categories</button>
   </div>
 </div>
 <main class="wrap" id="view"></main>
-<div class="wrap">
-  <footer>
-    <span>&copy; 2026 Bulk Bazaar App Store</span>
-    <span>Free apps for Android phones, tablets and TVs</span>
-  </footer>
-</div>
+<footer><div class="wrap"><span>© 2026 Bulk Bazaar App Store</span><span>Free apps for Android phones, tablets and TVs</span></div></footer>
+
 <script>
-const FALLBACK_NOTE = 'Could not load apps.json. Keep apps.json in the same folder as this page.';
-let DATA = { store: {}, apps: [] }, cat = 'All', query = '';
+const LINK_LABELS = { android: 'Install', web: 'Open web app', ios: 'Get for iPhone', windows: 'Download for Windows', mac: 'Download for Mac', source: 'Source code' };
+const TAB_NAMES = { app: 'apps', game: 'games', tv: 'TV apps' };
+let DATA = { store: {}, apps: [] }, tab = 'app', view = 'foryou', cat = null, chart = 'free', query = '';
 const $ = s => document.querySelector(s);
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const LINK_LABELS = { web: 'Open web app', android: 'Download for Android', ios: 'Get for iPhone', windows: 'Download for Windows', mac: 'Download for Mac', source: 'View source code' };
+const ARROW = d => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="${d === 'l' ? 'M15 5l-7 7 7 7' : 'M9 5l7 7-7 7'}"/></svg>`;
 
 function icon(a, cls = '') {
-  const c = a.icon?.color || '#002a3e';
   const inner = a.icon?.image ? `<img src="${esc(a.icon.image)}" alt="">` : esc(a.icon?.letter || a.name[0]);
-  return `<span class="icon ${cls}" style="--c:${esc(c)}">${inner}</span>`;
+  return `<span class="icon ${cls}" style="--c:${esc(a.icon?.color || '#0a3d55')}">${inner}</span>`;
 }
-function fmtDate(d) { try { return new Date(d + 'T00:00').toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' }); } catch { return d; } }
+const isTV = a => a.platforms.some(p => /TV/i.test(p));
+const inTab = a => tab === 'tv' ? isTV(a) : (a.type || 'app') === tab;
+const fmtDate = d => { try { return new Date(d + 'T00:00').toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' }); } catch { return d; } };
+const meta = a => `${esc(a.category)} · ${isTV(a) ? 'Phone & TV' : esc(a.platforms[0])}`;
 
-function renderCats() {
-  const cats = ['All', ...new Set(DATA.apps.map(a => a.category))].sort((a, b) => a === 'All' ? -1 : b === 'All' ? 1 : a.localeCompare(b));
-  $('#cats').innerHTML = cats.map(c => `<button class="cat" aria-pressed="${c === cat}" data-c="${esc(c)}">${c === 'All' ? 'All apps' : esc(c)}</button>`).join('');
+function section(title, sub, body, rowId) {
+  return `<section><div class="sec-head"><div><h2>${title}</h2>${sub ? `<p>${sub}</p>` : ''}</div>
+    ${rowId ? `<div class="arrows"><button class="arrow" data-scroll="${rowId}" data-dir="-1" aria-label="Scroll left">${ARROW('l')}</button><button class="arrow" data-scroll="${rowId}" data-dir="1" aria-label="Scroll right">${ARROW('r')}</button></div>` : ''}</div>${body}</section>`;
+}
+const heroCard = a => `<a class="hero" href="#${esc(a.id)}" style="--c:${esc(a.icon?.color)}">${a.banner ? `<img class="bn" src="${esc(a.banner)}" alt="">` : ''}
+  <div class="over">${icon(a, 's')}<div class="t"><b>${esc(a.name)}</b><small>${meta(a)}</small></div><span class="get">Free</span></div></a>`;
+const card = a => `<a class="card" href="#${esc(a.id)}"><div class="thumb" style="--c:${esc(a.icon?.color)}">${a.banner ? `<img src="${esc(a.banner)}" alt="" loading="lazy">` : ''}</div>
+  <div class="info">${icon(a, 's')}<div><b>${esc(a.name)}</b><small>${meta(a)}</small></div></div></a>`;
+const rank = (a, i) => `<a class="rank" href="#${esc(a.id)}"><span class="n">${i + 1}</span>${icon(a)}<span class="t"><b>${esc(a.name)}</b><small>${esc(a.category)}</small><span class="free">Free</span></span></a>`;
+const empty = (t, s) => `<div class="empty"><b>${t}</b><span>${s}</span></div>`;
+
+function renderForYou(list) {
+  if (!list.length) return empty(`No ${TAB_NAMES[tab]} yet`, tab === 'game' ? 'Our first game is on the way. Check back soon.' : 'New apps will show up here.');
+  const feats = list.filter(a => a.featured);
+  const newest = [...list].sort((a, b) => b.updated.localeCompare(a.updated));
+  let html = '';
+  if (feats.length) html += `<section><div class="row hero-row" id="r-hero">${feats.map(heroCard).join('')}</div></section>`;
+  html += section('Recommended for you', '', `<div class="row card-row" id="r-rec">${list.map(card).join('')}</div>`, 'r-rec');
+  html += section('Top free ' + TAB_NAMES[tab], '', `<div class="chart">${list.map(rank).join('')}</div>`);
+  if (list.length > 4) html += section('New &amp; updated', 'Fresh versions of our apps', `<div class="row card-row" id="r-new">${newest.map(card).join('')}</div>`, 'r-new');
+  const tv = list.filter(isTV);
+  if (tab !== 'tv' && tv.length && tv.length < list.length) html += section('Made for your TV', 'Works with Android TV and Google TV remotes', `<div class="row card-row" id="r-tv">${tv.map(card).join('')}</div>`, 'r-tv');
+  return html;
 }
 
-function matches(a) {
+function renderCharts(list) {
+  const sorts = { free: ['Top free', l => l], new: ['Newest', l => [...l].sort((a, b) => b.updated.localeCompare(a.updated))], tv: ['Top on TV', l => l.filter(isTV)] };
+  const l = sorts[chart][1](list);
+  return `<section><div class="ctabs">${Object.entries(sorts).map(([k, [n]]) => `<button class="vchip" data-chart="${k}" aria-pressed="${k === chart}">${n}</button>`).join('')}</div>
+    ${l.length ? `<div class="chart">${l.map(rank).join('')}</div>` : empty(`No ${TAB_NAMES[tab]} here yet`, 'Check back soon.')}</section>`;
+}
+
+function renderCategories(list) {
+  if (cat) {
+    const l = list.filter(a => a.category === cat);
+    return section(esc(cat), `<button class="ghost" data-cat="">← All categories</button>`, l.length ? `<div class="chart">${l.map(rank).join('')}</div>` : empty('Nothing here yet', ''));
+  }
+  const counts = {};
+  list.forEach(a => counts[a.category] = (counts[a.category] || 0) + 1);
+  const keys = Object.keys(counts).sort();
+  return section('Categories', '', keys.length ? `<div class="cats">${keys.map(k => `<button class="catcard" data-cat="${esc(k)}"><span><b>${esc(k)}</b><br><small>${counts[k]} app${counts[k] > 1 ? 's' : ''}</small></span>${ARROW('r')}</button>`).join('')}</div>` : empty('No categories yet', ''));
+}
+
+function renderSearch() {
   const q = query.trim().toLowerCase();
-  return (cat === 'All' || a.category === cat) &&
-    (!q || [a.name, a.tagline, a.category, a.description].join(' ').toLowerCase().includes(q));
-}
-
-function tile(a) {
-  return `<a class="tile" href="#${esc(a.id)}">${icon(a)}<span class="meta">
-    <b>${esc(a.name)}</b><span>${esc(a.tagline)}</span>
-    <small>${esc(a.category)} · v${esc(a.version)}</small></span></a>`;
+  const l = DATA.apps.filter(a => [a.name, a.tagline, a.category, a.description].join(' ').toLowerCase().includes(q));
+  return section(`Results for “${esc(query.trim())}”`, `${l.length} found`, l.length ? `<div class="chart">${l.map(rank).join('')}</div>` : empty('No matches', 'Try another word, like “TV” or “camera”.'));
 }
 
 function renderHome() {
-  const list = DATA.apps.filter(matches);
-  const browsing = cat === 'All' && !query.trim();
-  const feats = browsing ? DATA.apps.filter(a => a.featured) : [];
-  $('#hero').hidden = !browsing;
-  $('#view').innerHTML = `
-    ${feats.length ? `<section><p class="eyebrow">Most popular</p><h2>Featured apps</h2><div class="featured">${feats.map(a => `
-      <a class="feat" href="#${esc(a.id)}">${icon(a, 'sm')}<div class="meta">
-        <div class="eyebrow">${esc(a.category)}</div><h3>${esc(a.name)}</h3><p>${esc(a.tagline)}</p></div></a>`).join('')}</div></section>` : ''}
-    <section id="all-apps"><p class="eyebrow">${browsing ? 'Free to download' : 'Search results'}</p><h2>${browsing ? 'All apps' : `${list.length} app${list.length === 1 ? '' : 's'} found`}</h2>
-      ${list.length ? `<div class="grid">${list.map(tile).join('')}</div>` : `<p class="empty">No apps match "${esc(query)}". Try another word or pick All apps.</p>`}
-    </section>
-    ${browsing ? `<section><p class="eyebrow">Why our apps</p><h2>Simple and free</h2><div class="why">
-      <div><h3>Free to use</h3><p>No sign-up, no subscriptions and no ads in the way.</p></div>
-      <div><h3>Works on your TV</h3><p>Our apps run on Android phones, tablets and Android / Google TV.</p></div>
-      <div><h3>Updates itself</h3><p>Install once and the app tells you when a new version is ready.</p></div>
-    </div></section>` : ''}`;
+  $('#views').hidden = false;
+  document.querySelectorAll('.tab').forEach(b => b.setAttribute('aria-selected', b.dataset.tab === tab));
+  document.querySelectorAll('#views .vchip').forEach(b => b.setAttribute('aria-pressed', b.dataset.view === view));
+  const list = DATA.apps.filter(inTab);
+  $('#view').innerHTML = query.trim() ? renderSearch() : view === 'charts' ? renderCharts(list) : view === 'categories' ? renderCategories(list) : renderForYou(list);
 }
 
-function renderDetail(a) {
+function renderApp(a) {
+  $('#views').hidden = true;
   const links = Object.entries(a.links || {});
   const [first, ...rest] = links;
-  const btn = ([k, url], primary) => `<a class="btn ${primary ? 'btn-primary' : 'btn-ghost'}" href="${esc(url)}" target="_blank" rel="noopener">${esc(LINK_LABELS[k] || k)}</a>`;
-  const more = DATA.apps.filter(x => x.id !== a.id).slice(0, 4);
-  $('#hero').hidden = true;
-  $('#view').innerHTML = `
-    <section>
-      <a class="back" href="#">← All apps</a>
-      <div class="dhead">${icon(a, 'lg')}<div>
-        <p class="eyebrow">${esc(a.category)}</p>
-        <h1>${esc(a.name)}</h1>
-        <div class="dev">${esc(DATA.store.developer || '')}</div>
-        <div class="sub">${esc(a.tagline)}</div></div></div>
-      <div class="dfacts">
-        <div class="fact"><b>${esc(a.version)}</b><small>Version</small></div>
-        ${a.size ? `<div class="fact"><b>${esc(a.size)}</b><small>Size</small></div>` : ''}
-        <div class="fact"><b>${esc(fmtDate(a.updated))}</b><small>Updated</small></div>
-        <div class="fact"><b>Free</b><small>Price</small></div>
-        <div class="fact"><b>${esc(a.platforms[0])}</b><small>${a.platforms.length > 1 ? 'and ' + esc(a.platforms.slice(1).join(', ')) : 'Platform'}</small></div>
-      </div>
-      ${links.length ? `<div class="actions">${btn(first, true)}${rest.map(l => btn(l, false)).join('')}</div>` : ''}
-      <div class="prose">
-        <div><h2>About this app</h2><p>${esc(a.description)}</p></div>
-        ${a.whatsNew ? `<div><h2>What's new</h2><p>${esc(a.whatsNew)}</p></div>` : ''}
-        <div><h2>Available on</h2><p>${a.platforms.map(p => `<span class="tag">${esc(p)}</span>`).join(' ')}</p></div>
-      </div>
-    </section>
-    ${more.length ? `<section><p class="eyebrow">You may also like</p><h2>More apps</h2><div class="grid">${more.map(tile).join('')}</div></section>` : ''}`;
+  const more = DATA.apps.filter(x => x.id !== a.id);
+  const shots = a.screenshots?.length ? a.screenshots : a.banner ? [a.banner] : [];
+  $('#view').innerHTML = `<div class="app"><div>
+    <div class="ahead"><div><h1>${esc(a.name)}</h1><div class="dev">${esc(DATA.store.developer || '')}</div><div class="tag">${esc(a.tagline)}</div></div>${icon(a, 'xl')}</div>
+    <div class="stats">
+      <div class="stat"><b>Free</b><small>No ads, no sign-up</small></div>
+      <div class="stat"><b>${esc(a.version)}</b><small>Version</small></div>
+      <div class="stat"><b>${esc(a.category)}</b><small>Category</small></div>
+      <div class="stat"><b>${isTV(a) ? 'Phone + TV' : esc(a.platforms[0])}</b><small>${esc(a.platforms.join(', '))}</small></div>
+    </div>
+    <div class="btns">
+      ${first ? `<a class="install" href="${esc(first[1])}" target="_blank" rel="noopener">${esc(LINK_LABELS[first[0]] || first[0])}</a>` : ''}
+      ${rest.map(([k, u]) => `<a class="ghost" href="${esc(u)}" target="_blank" rel="noopener">${esc(LINK_LABELS[k] || k)}</a>`).join('')}
+      <button class="ghost" id="share"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg>Share</button>
+      <span class="toast" id="toast" aria-live="polite"></span>
+    </div>
+    ${shots.length ? `<div class="gallery">${shots.map(s => `<img src="${esc(s)}" alt="${esc(a.name)} preview" loading="lazy">`).join('')}</div>` : ''}
+    <div class="block"><h2>About this app</h2><p>${esc(a.description)}</p>
+      <div class="pills"><span class="pill">${esc(a.category)}</span>${a.platforms.map(p => `<span class="pill">${esc(p)}</span>`).join('')}</div></div>
+    ${a.whatsNew ? `<div class="block"><h2>What's new</h2><p>${esc(a.whatsNew)}</p><small class="toast">Updated on ${esc(fmtDate(a.updated))}</small></div>` : ''}
+  </div>
+  <aside class="side">${more.length ? `<h2>More apps</h2>${more.map(rank).join('')}` : ''}</aside></div>`;
+  $('#share').addEventListener('click', () => {
+    const url = location.href;
+    navigator.clipboard?.writeText(url).then(() => $('#toast').textContent = 'Link copied', () => $('#toast').textContent = url)
+      ?? ($('#toast').textContent = url);
+  });
   scrollTo(0, 0);
 }
 
 function route() {
-  const id = location.hash.slice(1);
-  const app = DATA.apps.find(a => a.id === id);
-  app ? renderDetail(app) : renderHome();
+  const a = DATA.apps.find(x => x.id === location.hash.slice(1));
+  a ? renderApp(a) : renderHome();
 }
-function goHome() { if (DATA.apps.some(a => a.id === location.hash.slice(1))) location.hash = ''; else renderHome(); }
+function goHome() { if (DATA.apps.some(x => x.id === location.hash.slice(1))) location.hash = ''; else renderHome(); }
 
-$('#cats').addEventListener('click', e => {
-  const b = e.target.closest('.cat'); if (!b) return;
-  cat = b.dataset.c; renderCats(); goHome();
+document.querySelector('.tabs').addEventListener('click', e => { const b = e.target.closest('.tab'); if (!b) return; tab = b.dataset.tab; cat = null; goHome(); });
+$('#views').addEventListener('click', e => { const b = e.target.closest('.vchip'); if (!b) return; view = b.dataset.view; cat = null; goHome(); });
+$('#view').addEventListener('click', e => {
+  const s = e.target.closest('[data-scroll]');
+  if (s) { const r = document.getElementById(s.dataset.scroll); r.scrollBy({ left: s.dataset.dir * r.clientWidth * 0.8, behavior: 'smooth' }); return; }
+  const c = e.target.closest('[data-chart]'); if (c) { chart = c.dataset.chart; renderHome(); return; }
+  const k = e.target.closest('[data-cat]'); if (k) { cat = k.dataset.cat || null; renderHome(); }
 });
 $('#q').addEventListener('input', e => { query = e.target.value; goHome(); });
-$('#search-form').addEventListener('submit', e => { e.preventDefault(); query = $('#q').value; goHome(); });
+document.querySelector('.logo').addEventListener('click', () => { tab = 'app'; view = 'foryou'; query = ''; $('#q').value = ''; });
 addEventListener('hashchange', route);
 
-fetch('apps.json').then(r => r.json()).then(d => {
-  DATA = d;
-  $('#appCount').textContent = `${d.apps.length} app${d.apps.length === 1 ? '' : 's'}`;
-  renderCats(); route();
-}).catch(() => { $('#view').innerHTML = `<section><p class="empty">${FALLBACK_NOTE}</p></section>`; });
+fetch('apps.json').then(r => r.json()).then(d => { DATA = d; route(); })
+  .catch(() => { $('#view').innerHTML = empty('Could not load the app list', 'Keep apps.json in the same folder as this page.'); });
 </script>
 </body>
 </html>

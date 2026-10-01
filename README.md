@@ -13,7 +13,10 @@ Copy one block inside `"apps"` in apps.json and change the fields:
 | id | short unique name used in the link, e.g. `budget-buddy` |
 | name, tagline, description, whatsNew | text shown in the store |
 | category | Finance, Games, Tools... new categories appear automatically |
+| type | `app` or `game` (decides the Apps / Games tab; apps that list a TV platform also show under TV) |
 | icon | `{"letter": "B", "color": "#0F9D74"}` or `{"image": "icons/budget.png"}` |
+| banner | wide 1024x500 picture in `images/`, used for the big cards and the app page |
+| screenshots | optional list of extra pictures for the app page gallery |
 | featured | `true` to show it in the Featured row |
 | version, updated (YYYY-MM-DD), size, platforms | info shown on the detail page |
 | links | any of `web`, `android`, `ios`, `windows`, `mac`, `source`, each a URL |

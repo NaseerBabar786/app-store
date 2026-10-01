@@ -8,12 +8,14 @@
     {
       "id": "live-tv",
       "name": "Live TV",
+      "type": "app",
       "tagline": "Free live TV channels by country, on your phone or TV",
       "category": "Entertainment",
       "icon": {
         "image": "icons/live-tv.svg",
         "color": "#1E1E2E"
       },
+      "banner": "images/live-tv.jpg",
       "featured": true,
       "version": "1.8.36",
       "updated": "2026-10-01",
@@ -31,12 +33,14 @@
     {
       "id": "stream-player-plus",
       "name": "Stream Player Plus",
+      "type": "app",
       "tagline": "Play your own M3U playlists on phones, tablets and Android TV",
       "category": "Video Players",
       "icon": {
         "image": "icons/stream-player-plus.png",
         "color": "#1C2333"
       },
+      "banner": "images/stream-player-plus.jpg",
       "featured": true,
       "version": "1.0.1",
       "updated": "2026-10-01",
@@ -53,12 +57,14 @@
     {
       "id": "live-cam",
       "name": "Live Cam",
+      "type": "app",
       "tagline": "Watch your CCTV and IP cameras live, on phone or Google TV",
       "category": "Home & Security",
       "icon": {
         "image": "icons/live-cam.svg",
         "color": "#10151F"
       },
+      "banner": "images/live-cam.jpg",
       "version": "0.3.8",
       "updated": "2026-10-01",
       "platforms": [
