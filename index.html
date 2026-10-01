@@ -224,6 +224,9 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
 
 <script src="firebase-config.js"></script>
 <script>
+// Paid apps: set "price" (e.g. "$2.99") and links.buy (the checkout page). The APK link stays with the payment service, never in apps.json.
+const isPaid = a => !!a.price;
+const priceOf = a => a.price ? esc(a.price) : 'Free';
 const LINK_LABELS = { android: 'Install', web: 'Open web app', ios: 'Get for iPhone', windows: 'Download for Windows', mac: 'Download for Mac', source: 'Source code' };
 const TAB_NAMES = { app: 'apps', game: 'games', tv: 'TV apps' };
 let DATA = { store: {}, apps: [] }, tab = 'app', view = 'foryou', cat = null, chart = 'free', query = '';
@@ -255,10 +258,10 @@ function section(title, sub, body, rowId) {
     ${rowId ? `<div class="arrows"><button class="arrow" data-scroll="${rowId}" data-dir="-1" aria-label="Scroll left">${ARROW('l')}</button><button class="arrow" data-scroll="${rowId}" data-dir="1" aria-label="Scroll right">${ARROW('r')}</button></div>` : ''}</div>${body}</section>`;
 }
 const heroCard = a => `<a class="hero" href="#${esc(a.id)}" style="--c:${esc(a.icon?.color)}">${a.banner ? `<img class="bn" src="${esc(a.banner)}" alt="">` : ''}
-  <div class="over">${icon(a, 's')}<div class="t"><b>${esc(a.name)}</b><small>${meta(a)}</small></div><span class="get">Free</span></div></a>`;
+  <div class="over">${icon(a, 's')}<div class="t"><b>${esc(a.name)}</b><small>${meta(a)}</small></div><span class="get">${priceOf(a)}</span></div></a>`;
 const card = a => `<a class="card" href="#${esc(a.id)}"><div class="thumb" style="--c:${esc(a.icon?.color)}">${a.banner ? `<img src="${esc(a.banner)}" alt="" loading="lazy">` : ''}</div>
   <div class="info">${icon(a, 's')}<div><b>${esc(a.name)}</b><small>${meta(a)}</small></div></div></a>`;
-const rank = (a, i) => `<a class="rank" href="#${esc(a.id)}"><span class="n">${i + 1}</span>${icon(a)}<span class="t"><b>${esc(a.name)}</b><small>${esc(a.category)}</small><span class="free">Free</span></span></a>`;
+const rank = (a, i) => `<a class="rank" href="#${esc(a.id)}"><span class="n">${i + 1}</span>${icon(a)}<span class="t"><b>${esc(a.name)}</b><small>${esc(a.category)}</small><span class="free">${priceOf(a)}</span></span></a>`;
 const empty = (t, s) => `<div class="empty"><b>${t}</b><span>${s}</span></div>`;
 
 function renderForYou(list) {
@@ -268,7 +271,9 @@ function renderForYou(list) {
   let html = '';
   if (feats.length) html += `<section><div class="row hero-row" id="r-hero">${feats.map(heroCard).join('')}</div></section>`;
   html += section('Recommended for you', '', `<div class="row card-row" id="r-rec">${list.map(card).join('')}</div>`, 'r-rec');
-  html += section('Top free ' + TAB_NAMES[tab], '', `<div class="chart">${list.map(rank).join('')}</div>`);
+  const free = list.filter(a => !isPaid(a)), paid = list.filter(isPaid);
+  if (free.length) html += section('Top free ' + TAB_NAMES[tab], '', `<div class="chart">${free.map(rank).join('')}</div>`);
+  if (paid.length) html += section('Top paid ' + TAB_NAMES[tab], '', `<div class="chart">${paid.map(rank).join('')}</div>`);
   if (list.length > 4) html += section('New &amp; updated', 'Fresh versions of our apps', `<div class="row card-row" id="r-new">${newest.map(card).join('')}</div>`, 'r-new');
   const tv = list.filter(isTV);
   if (tab !== 'tv' && tv.length && tv.length < list.length) html += section('Made for your TV', 'Works with Android TV and Google TV remotes', `<div class="row card-row" id="r-tv">${tv.map(card).join('')}</div>`, 'r-tv');
@@ -276,8 +281,8 @@ function renderForYou(list) {
 }
 
 function renderCharts(list) {
-  const sorts = { free: ['Top free', l => l], new: ['Newest', l => [...l].sort((a, b) => b.updated.localeCompare(a.updated))], tv: ['Top on TV', l => l.filter(isTV)] };
-  const l = sorts[chart][1](list);
+  const sorts = { free: ['Top free', l => l.filter(a => !isPaid(a))], ...(list.some(isPaid) ? { paid: ['Top paid', l => l.filter(isPaid)] } : {}), new: ['Newest', l => [...l].sort((a, b) => b.updated.localeCompare(a.updated))], tv: ['Top on TV', l => l.filter(isTV)] };
+  const l = (sorts[chart] || sorts.free)[1](list);
   return `<section><div class="ctabs">${Object.entries(sorts).map(([k, [n]]) => `<button class="vchip" data-chart="${k}" aria-pressed="${k === chart}">${n}</button>`).join('')}</div>
     ${l.length ? `<div class="chart">${l.map(rank).join('')}</div>` : empty(`No ${TAB_NAMES[tab]} here yet`, 'Check back soon.')}</section>`;
 }
@@ -324,20 +329,20 @@ function renderHome() {
 
 function renderApp(a) {
   $('#views').hidden = true;
-  const links = Object.entries(a.links || {});
-  const [first, ...rest] = links;
+  const links = Object.entries(a.links || {}).filter(([k]) => k !== 'buy' && !(isPaid(a) && k === 'android'));
+  const [first, ...rest] = isPaid(a) && a.links?.buy ? [['buy', a.links.buy], ...links] : links;
   const more = DATA.apps.filter(x => x.id !== a.id);
   const shots = a.screenshots?.length ? a.screenshots : a.banner ? [a.banner] : [];
   $('#view').innerHTML = `<div class="app"><div>
     <div class="ahead"><div><h1>${esc(a.name)}</h1><div class="dev">${esc(DATA.store.developer || '')}</div><div class="tag">${esc(a.tagline)}</div></div>${icon(a, 'xl')}</div>
     <div class="stats">
-      <div class="stat"><b>Free</b><small>No ads, no sign-up</small></div>
+      <div class="stat"><b>${priceOf(a)}</b><small>${isPaid(a) ? 'One-time purchase' : 'No ads, no sign-up'}</small></div>
       <div class="stat"><b>${esc(a.version)}</b><small>Version</small></div>
       <div class="stat"><b>${esc(a.category)}</b><small>Category</small></div>
       <div class="stat"><b>${isTV(a) ? 'Phone + TV' : esc(a.platforms[0])}</b><small>${esc(a.platforms.join(', '))}</small></div>
     </div>
     <div class="btns">
-      ${first ? `<a class="install" href="${esc(first[1])}" ${first[0] === 'android' ? `data-dl="${esc(a.id)}"` : ''} target="_blank" rel="noopener">${first[0] === 'android' && ACCT.library[a.id] ? (hasUpdate(a) ? 'Update' : 'Install again') : esc(LINK_LABELS[first[0]] || first[0])}</a>` : ''}
+      ${first ? `<a class="install" href="${esc(first[1])}" ${first[0] === 'android' ? `data-dl="${esc(a.id)}"` : ''} target="_blank" rel="noopener">${first[0] === 'buy' ? `Buy ${esc(a.price)}` : first[0] === 'android' && ACCT.library[a.id] ? (hasUpdate(a) ? 'Update' : 'Install again') : esc(LINK_LABELS[first[0]] || first[0])}</a>` : ''}
       ${rest.map(([k, u]) => `<a class="ghost" href="${esc(u)}" target="_blank" rel="noopener">${esc(LINK_LABELS[k] || k)}</a>`).join('')}
       <button class="ghost" id="wish" aria-pressed="${ACCT.wishlist.includes(a.id)}"><svg viewBox="0 0 24 24" fill="${ACCT.wishlist.includes(a.id) ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M6 3h12v18l-6-4-6 4z"/></svg>${ACCT.wishlist.includes(a.id) ? 'On wishlist' : 'Add to wishlist'}</button>
       <button class="ghost" id="share"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg>Share</button>

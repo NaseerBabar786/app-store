@@ -20,6 +20,8 @@ Copy one block inside `"apps"` in apps.json and change the fields:
 | featured | `true` to show it in the Featured row |
 | version, updated (YYYY-MM-DD), size, platforms | info shown on the detail page |
 | links | any of `web`, `android`, `ios`, `windows`, `mac`, `source`, each a URL |
+| price | optional, e.g. `"$2.99"`. Makes the app paid: the store shows the price and a Buy button. |
+| links.buy | for paid apps, the payment service's checkout page. Never put a paid app's APK link in this file. |
 | example | remove this line once the app is real |
 
 ## Hosting
