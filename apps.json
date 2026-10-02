@@ -31,30 +31,6 @@
       }
     },
     {
-      "id": "stream-player-plus",
-      "name": "Stream Player Plus",
-      "type": "app",
-      "tagline": "Play your own M3U playlists on phones, tablets and Android TV",
-      "category": "Video Players",
-      "icon": {
-        "image": "icons/stream-player-plus.png",
-        "color": "#1C2333"
-      },
-      "banner": "images/stream-player-plus.jpg",
-      "featured": true,
-      "version": "1.0.1",
-      "updated": "2026-10-01",
-      "platforms": [
-        "Android",
-        "Android TV"
-      ],
-      "description": "A simple, fast player for the IPTV playlists you already have. Add a playlist link (M3U or M3U8) or open a playlist file, and your channels show in a clean grid with groups, search, favourites and channel numbers. Full TV remote support, picture-in-picture on phones, and no account, ads or tracking.",
-      "whatsNew": "Multiple playlists, switchable in Settings.",
-      "links": {
-        "android": "https://github.com/NaseerBabar786/live-tv-app/releases/download/stream-player-plus-v1.0.1/StreamPlayerPlus.apk"
-      }
-    },
-    {
       "id": "live-cam",
       "name": "Live Cam",
       "type": "app",
@@ -65,6 +41,7 @@
         "color": "#10151F"
       },
       "banner": "images/live-cam.jpg",
+      "featured": true,
       "version": "0.3.8",
       "updated": "2026-10-01",
       "platforms": [
