@@ -48,7 +48,7 @@
         "Android",
         "Google TV"
       ],
-      "description": "This app is specially designed for Android TVs. Specially designed for Wyze cameras: sign in with your Wyze username and password, and all your Wyze cameras appear live in one grid. Tap or press OK for full screen with sound. You can also add other cameras by brand and IP address (Hikvision, Dahua, Amcrest, Lorex, Reolink, Tapo, Uniview, ONVIF and more) or paste any RTSP or HTTP address. Your logins stay on your device, and the app updates itself.",
+      "description": "This app is specially designed for Android TVs and Wyze cameras: sign in with your Wyze username and password, and all your Wyze cameras appear live in one grid. Tap or press OK for full screen with sound. You can also add other cameras by brand and IP address (Hikvision, Dahua, Amcrest, Lorex, Reolink, Tapo, Uniview, ONVIF and more) or paste any RTSP or HTTP address. Your logins stay on your device, and the app updates itself.",
       "whatsNew": "Camera grid that wraps to fit any screen.",
       "links": {
         "android": "https://github.com/NaseerBabar786/live-tv-app/releases/download/livecam-v0.3.8/LiveCam.apk"
