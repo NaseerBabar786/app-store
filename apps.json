@@ -31,6 +31,31 @@
       }
     },
     {
+      "id": "live-tv-max",
+      "name": "Live TV Max",
+      "type": "app",
+      "tagline": "Live channels, a TV guide, movies and dramas on one home screen",
+      "category": "Entertainment",
+      "icon": {
+        "image": "icons/live-tv-max.svg",
+        "color": "#1E1E2E"
+      },
+      "banner": "images/live-tv-max.jpg",
+      "featured": true,
+      "version": "1.0.0",
+      "updated": "2026-10-04",
+      "platforms": [
+        "Android",
+        "Android TV"
+      ],
+      "description": "A streaming-style home screen for free live TV: big channel cards in rows by country and by language, with a live preview of the highlighted channel. Many channels show what's on now and next. Urdu and Hindi dramas, movies, shows and kids' programmes from the channels' own official uploads sit in the same rows, with a row to continue what you started. Installs next to Live TV, needs no sign-in, works with TV remotes and updates itself.",
+      "whatsNew": "First version.",
+      "links": {
+        "android": "https://github.com/NaseerBabar786/live-tv-app/releases/download/live-tv-max/LiveTVMax.apk",
+        "web": "https://tv.bulkbazaar.ca"
+      }
+    },
+    {
       "id": "live-cam",
       "name": "Live Cam",
       "type": "app",
