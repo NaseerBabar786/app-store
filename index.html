@@ -91,6 +91,27 @@ main{padding-block:20px 48px;display:grid;gap:40px}
 .icon.s{width:48px;height:48px;font-size:22px}
 .icon.xl{width:120px;height:120px;font-size:56px}
 
+/* TV apps: a card per TV app with its Downloader code */
+.tvgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px}
+.tvcard{display:grid;grid-template-columns:auto 1fr;gap:12px 16px;align-items:center;padding:16px;border:1px solid var(--line);border-radius:12px;min-width:0}
+.tvcard .t{min-width:0}
+.tvcard .t b{display:block;font-size:1rem;font-weight:500}
+.tvcard .t small{color:var(--muted);font-size:.8125rem;display:block}
+.tvcard .code{grid-column:1/-1;display:flex;align-items:center;gap:10px;flex-wrap:wrap;background:var(--soft);border-radius:8px;padding:10px 12px}
+.tvcard .code span{color:var(--muted);font-size:.8125rem}
+.tvcard .code b,.tvcode b{font:500 1.125rem/1.2 var(--font);letter-spacing:.02em;color:var(--ink);word-break:break-all}
+.tvcard .acts{grid-column:1/-1;display:flex;gap:8px;flex-wrap:wrap}
+.tvcard .acts a{text-decoration:none;font-weight:500;font-size:.875rem;border-radius:8px;padding:.5rem 1.2rem}
+.tvcard .acts .go{background:var(--green);color:#fff}
+.tvcard .acts .more{border:1px solid var(--line);color:var(--green-dark)}
+.copy{border:1px solid var(--line);background:var(--bg);border-radius:6px;padding:2px 10px;font-size:.75rem;cursor:pointer;color:var(--muted);margin-left:auto}
+.copy:hover{background:var(--hover)}
+.tvhow{border:1px solid var(--line);border-radius:12px;padding:4px 16px;margin-top:16px}
+.tvhow summary{cursor:pointer;font-weight:500;padding:10px 0;color:var(--green-dark)}
+.tvhow ol{margin:0 0 14px;padding-left:20px;display:grid;gap:6px;color:var(--ink)}
+.tvhow li{line-height:1.5}
+.tvcode{display:flex;align-items:center;gap:10px;flex-wrap:wrap;background:var(--soft);border-radius:8px;padding:12px 14px;margin-top:10px}
+
 /* top chart */
 .ctabs{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
 .chart{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:4px 24px}
@@ -192,7 +213,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
     <nav class="tabs" role="tablist" aria-label="Store sections">
       <button class="tab" role="tab" data-tab="app" aria-selected="true">Apps</button>
       <button class="tab" role="tab" data-tab="game" aria-selected="false">Games</button>
-      <button class="tab" role="tab" data-tab="tv" aria-selected="false">TV</button>
+      <button class="tab" role="tab" data-tab="tv" aria-selected="false">TV apps</button>
     </nav>
     <label class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/></svg>
       <input id="q" type="search" placeholder="Search for apps &amp; games" aria-label="Search for apps and games" autocomplete="off"></label>
@@ -262,6 +283,22 @@ const heroCard = a => `<a class="hero" href="#${esc(a.id)}" style="--c:${esc(a.i
 const card = a => `<a class="card" href="#${esc(a.id)}"><div class="thumb" style="--c:${esc(a.icon?.color)}">${a.banner ? `<img src="${esc(a.banner)}" alt="" loading="lazy">` : ''}</div>
   <div class="info">${icon(a, 's')}<div><b>${esc(a.name)}</b><small>${meta(a)}</small></div></div></a>`;
 const rank = (a, i) => `<a class="rank" href="#${esc(a.id)}"><span class="n">${i + 1}</span>${icon(a)}<span class="t"><b>${esc(a.name)}</b><small>${esc(a.category)}</small><span class="free">${priceOf(a)}</span></span></a>`;
+// TV apps: each app's Downloader code ("tvCode" in apps.json), typed in the Downloader app on a TV.
+const copyBtn = t => `<button class="copy" data-copy="${esc(t)}">Copy</button>`;
+const tvCard = a => `<div class="tvcard">${icon(a, 's')}<a class="t" href="#${esc(a.id)}" style="text-decoration:none"><b>${esc(a.name)}</b><small>${esc(a.tagline)}</small></a>
+  <div class="code"><span>On a TV, type in Downloader:</span><b>${esc(a.tvCode)}</b>${copyBtn(a.tvCode)}</div>
+  <div class="acts"><a class="go" href="${esc(a.links?.android || '#' + a.id)}" data-dl="${esc(a.id)}" target="_blank" rel="noopener">Install on this device</a><a class="more" href="#${esc(a.id)}">About the app</a></div></div>`;
+const TV_STEPS = `<details class="tvhow"><summary>How to install an app on Google TV, Android TV or Fire TV</summary><ol>
+  <li>On the TV, search for <b>Downloader</b> (by AFTVnews, orange icon) and install it. You only do this once.</li>
+  <li>Allow it to install apps, once: <b>Settings › System › About</b>, press <b>OK</b> on <b>Android TV OS build</b> 7 times, then <b>Settings › Apps › Security &amp; restrictions › Unknown sources</b> and turn on <b>Downloader</b>. On Fire TV: <b>Settings › My Fire TV › Developer options › Install unknown apps</b>.</li>
+  <li>Open <b>Downloader</b>, type the app's code shown above (for example <b>tv.bulkbazaar.ca/max</b>) and press <b>Go</b>.</li>
+  <li>When the download finishes, press <b>Install</b>. If Play Protect warns you, choose <b>Install anyway</b>. Then press <b>Open</b>.</li>
+</ol></details>`;
+function tvSection(list, steps) {
+  const tv = list.filter(a => isTV(a) && a.tvCode);
+  if (!tv.length) return '';
+  return section('TV apps', 'Made for Google TV, Android TV and Fire TV remotes. Each one also works on phones.', `<div class="tvgrid">${tv.map(tvCard).join('')}</div>${steps ? TV_STEPS : ''}`);
+}
 const empty = (t, s) => `<div class="empty"><b>${t}</b><span>${s}</span></div>`;
 
 function renderForYou(list) {
@@ -269,7 +306,9 @@ function renderForYou(list) {
   const feats = list.filter(a => a.featured);
   const newest = [...list].sort((a, b) => b.updated.localeCompare(a.updated));
   let html = '';
+  if (tab === 'tv') html += tvSection(list, true);
   if (feats.length) html += `<section><div class="row hero-row" id="r-hero">${feats.map(heroCard).join('')}</div></section>`;
+  if (tab === 'app') html += tvSection(DATA.apps, false);
   html += section('Recommended for you', '', `<div class="row card-row" id="r-rec">${list.map(card).join('')}</div>`, 'r-rec');
   const free = list.filter(a => !isPaid(a)), paid = list.filter(isPaid);
   if (free.length) html += section('Top free ' + TAB_NAMES[tab], '', `<div class="chart">${free.map(rank).join('')}</div>`);
@@ -351,6 +390,7 @@ function renderApp(a) {
     ${shots.length ? `<div class="gallery">${shots.map(s => `<img src="${esc(s)}" alt="${esc(a.name)} preview" loading="lazy">`).join('')}</div>` : ''}
     <div class="block"><h2>About this app</h2><p>${esc(a.description)}</p>
       <div class="pills"><span class="pill">${esc(a.category)}</span>${a.platforms.map(p => `<span class="pill">${esc(p)}</span>`).join('')}</div></div>
+    ${isTV(a) && a.tvCode ? `<div class="block"><h2>Install on a TV</h2><p>Open the <b>Downloader</b> app on your TV and type:</p><div class="tvcode"><b>${esc(a.tvCode)}</b>${copyBtn(a.tvCode)}</div>${TV_STEPS}</div>` : ''}
     ${a.whatsNew ? `<div class="block"><h2>What's new</h2><p>${esc(a.whatsNew)}</p><small class="toast">Updated on ${esc(fmtDate(a.updated))}</small></div>` : ''}
   </div>
   <aside class="side">${more.length ? `<h2>More apps</h2>${more.map(rank).join('')}` : ''}</aside></div>`;
@@ -393,6 +433,13 @@ document.addEventListener('click', e => {
   const a = DATA.apps.find(x => x.id === d.dataset.dl); if (!a) return;
   ACCT.library[a.id] = { version: a.version, date: new Date().toISOString().slice(0, 10) }; saveAcct();
   setTimeout(() => route(), 300);
+});
+// Copy buttons for the TV codes
+document.addEventListener('click', e => {
+  const c = e.target.closest('[data-copy]'); if (!c) return;
+  e.preventDefault();
+  const t = c.dataset.copy, done = () => { c.textContent = 'Copied'; setTimeout(() => c.textContent = 'Copy', 1500); };
+  navigator.clipboard?.writeText(t).then(done, done) ?? done();
 });
 // account menu
 function closeMenu() { $('#menu').hidden = true; $('#acctBtn').setAttribute('aria-expanded', 'false'); }
