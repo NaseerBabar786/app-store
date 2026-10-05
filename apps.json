@@ -97,14 +97,14 @@
       },
       "banner": "images/iqra-quran.jpg",
       "featured": true,
-      "version": "1.1.0",
+      "version": "1.2.0",
       "updated": "2026-10-05",
       "platforms": [
         "Android",
         "Android TV"
       ],
       "description": "A free Quran app for the whole family, in Urdu or English. Kids Qaida takes children step by step from the letters (alif, baa, taa) through zabar, zer, pesh, tanween, madd, jazm and tashdeed to whole Quran words and short surahs, with tap-to-hear cards, a Play all mode for learning together on the TV, quizzes and stars for each child. Read Quran has all 114 surahs in the Indo-Pak script with Urdu and English translation and recitation by famous qaris, including Al-Husary's slow teaching recitation. Hifz repeats each ayah as many times as you like with a pause to repeat it, lets you hide the text to test yourself, and plans your Sabaq, Sabqi and Manzil revision. No sign-in, no ads, works with TV remotes and updates itself.",
-      "whatsNew": "Reading themes that are easy on the eyes: Paper, Sepia, Mushaf green, Soft dark, Night (warm) and High contrast, plus your own background and text colours, and wider line spacing.",
+      "whatsNew": "New logo: the word Iqra rising in light above the Quran. Also reading themes that are easy on the eyes (Paper, Sepia, Mushaf green, Soft dark, Night, High contrast, Custom) and wider line spacing.",
       "links": {
         "android": "https://github.com/NaseerBabar786/live-tv-app/releases/download/iqra-quran/IqraQuran.apk"
       },
