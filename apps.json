@@ -17,7 +17,7 @@
       },
       "banner": "images/app-bazaar.jpg",
       "featured": true,
-      "version": "1.1.0",
+      "version": "1.2.0",
       "updated": "2026-10-05",
       "platforms": [
         "Android",
@@ -43,7 +43,7 @@
       },
       "banner": "images/live-tv.jpg",
       "featured": true,
-      "version": "1.9.30",
+      "version": "1.9.32",
       "updated": "2026-10-05",
       "platforms": [
         "Android",
