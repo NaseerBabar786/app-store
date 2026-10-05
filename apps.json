@@ -6,6 +6,32 @@
   },
   "apps": [
     {
+      "id": "app-bazaar",
+      "name": "App Bazaar",
+      "type": "app",
+      "tagline": "All our apps in one app: install and update them on your phone or TV",
+      "category": "Tools",
+      "icon": {
+        "image": "icons/app-bazaar.svg",
+        "color": "#FFFFFF"
+      },
+      "banner": "images/app-bazaar.jpg",
+      "featured": true,
+      "version": "1.0.0",
+      "updated": "2026-10-05",
+      "platforms": [
+        "Android",
+        "Android TV"
+      ],
+      "package": "com.naseerbabar.appbazaar",
+      "description": "The App Bazaar store as an app. It lists every app on apps.bulkbazaar.ca with its picture and description. Press Install and it downloads the app and opens Android's installer for you. Apps you already have show Open, and Update when a newer version is out; the Updates tab lists them all. New apps added to App Bazaar appear in the app by themselves. Works with a TV remote on Google TV, Android TV and Fire TV, and with touch on phones and tablets. App Bazaar updates itself too.",
+      "whatsNew": "First version.",
+      "links": {
+        "android": "https://github.com/NaseerBabar786/live-tv-app/releases/download/app-bazaar/AppBazaar.apk"
+      },
+      "tvCode": "tv.bulkbazaar.ca/bazaar"
+    },
+    {
       "id": "live-tv",
       "name": "Free Live TV",
       "type": "app",
@@ -23,6 +49,7 @@
         "Android",
         "Android TV"
       ],
+      "package": "com.naseerbabar.livetv",
       "description": "Watch live channels that broadcasters stream publicly, sorted by country. Opens on Pakistani, Indian (Hindi, Urdu, Punjabi) and Canadian channels, with a channel grid, logos, search, favourites and a full-screen player. Works with TV remotes, supports picture-in-picture, and can also play your own M3U playlist. The app updates itself when a new version is out.",
       "whatsNew": "Version 1.9.10: Browse mode, a home screen with big channel cards, plus News, CP24 and Home screens, games and the Library of movies and dramas.",
       "links": {
@@ -49,6 +76,7 @@
         "Android",
         "Android TV"
       ],
+      "package": "com.naseerbabar.livetvmax",
       "description": "A streaming-style home screen for free live TV: big channel cards in rows by country and by language, with a live preview of the highlighted channel. Many channels show what's on now and next. Urdu and Hindi dramas, movies, shows and kids' programmes from the channels' own official uploads sit in the same rows, with a row to continue what you started. Installs next to Free Live TV, needs no sign-in, works with TV remotes and updates itself.",
       "whatsNew": "First version.",
       "links": {
@@ -75,6 +103,7 @@
         "Android",
         "Google TV"
       ],
+      "package": "com.naseerbabar.livecam",
       "description": "This app is specially designed for Android TVs and Wyze cameras: sign in with your Wyze username and password, and all your Wyze cameras appear live in one grid. Tap or press OK for full screen with sound. You can also add other cameras by brand and IP address (Hikvision, Dahua, Amcrest, Lorex, Reolink, Tapo, Uniview, ONVIF and more) or paste any RTSP or HTTP address. Your logins stay on your device, and the app updates itself.",
       "whatsNew": "Version 0.4.3, the newest build.",
       "links": {
@@ -100,6 +129,7 @@
         "Android",
         "Windows"
       ],
+      "package": "com.naseerbabar.multichat",
       "description": "Use several WhatsApp accounts at the same time, each in its own separate box: business, personal and more. Each account is the official WhatsApp Web, signed in with its own QR code (or “Log in with phone number” on the same phone), so nothing is modified and your accounts stay safe. Give every account a name, colour and photo, see its unread count, and get notifications that say which account a message is for. Mute an account or set quiet hours, save quick replies and type them into a chat with one tap, and lock the app with a PIN (or fingerprint on the phone). On a Windows PC you can show all accounts side by side, and it runs in the tray. Multi Chat never sends messages by itself, and it is not made by or connected with WhatsApp or Meta.",
       "whatsNew": "First version, for Windows PCs and Android phones.",
       "links": {

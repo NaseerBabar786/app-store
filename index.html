@@ -91,6 +91,17 @@ main{padding-block:20px 48px;display:grid;gap:40px}
 .icon.s{width:48px;height:48px;font-size:22px}
 .icon.xl{width:120px;height:120px;font-size:56px}
 
+/* App Bazaar app strip: download the store app for phones and TVs, plus the two install guides */
+.getapp{display:grid;grid-template-columns:auto 1fr;gap:14px 20px;align-items:center;padding:18px 20px;border-radius:16px;background:linear-gradient(135deg,#e6f6f6,#f4fbfb);border:1px solid #c6e8e8;margin-top:20px}
+.getapp img{width:72px;height:72px;border-radius:18px;background:#fff;box-shadow:0 1px 3px rgba(60,64,67,.3)}
+.getapp h2{font-size:1.25rem}.getapp p{color:var(--muted)}
+.getapp .row2{grid-column:1/-1;display:flex;gap:10px 14px;flex-wrap:wrap;align-items:center}
+.getapp .row2 a{text-decoration:none;font-weight:500;font-size:.875rem;border-radius:8px;padding:.55rem 1.1rem}
+.getapp .go{background:var(--green);color:#fff}.getapp .more{border:1px solid var(--line);background:#fff;color:var(--green-dark)}
+.getapp .code{display:flex;flex-wrap:wrap;max-width:100%;align-items:center;gap:4px 8px;background:#fff;border:1px solid var(--line);border-radius:8px;padding:6px 10px}
+.getapp .code span{color:var(--muted);font-size:.8125rem}.getapp .code b{font-weight:500;font-size:1rem}
+@media (max-width:560px){.getapp{grid-template-columns:auto 1fr;padding:16px}.getapp img{width:52px;height:52px;border-radius:14px}.getapp .code b{word-break:break-all}}
+
 /* TV apps: a card per TV app with its Downloader code */
 .tvgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(320px,100%),1fr));gap:16px}
 .tvcard{display:grid;grid-template-columns:auto 1fr;gap:12px 16px;align-items:center;padding:16px;border:1px solid var(--line);border-radius:12px;min-width:0}
@@ -305,7 +316,7 @@ const TV_STEPS = `<details class="tvhow"><summary>How to install an app on Googl
   <li>Allow it to install apps, once: <b>Settings › System › About</b>, press <b>OK</b> on <b>Android TV OS build</b> 7 times, then <b>Settings › Apps › Security &amp; restrictions › Unknown sources</b> and turn on <b>Downloader</b>. On Fire TV: <b>Settings › My Fire TV › Developer options › Install unknown apps</b>.</li>
   <li>Open <b>Downloader</b>, type the app's code shown above (for example <b>tv.bulkbazaar.ca/max</b>) and press <b>Go</b>.</li>
   <li>When the download finishes, press <b>Install</b>. If Play Protect warns you, choose <b>Install anyway</b>. Then press <b>Open</b>.</li>
-</ol></details>`;
+</ol><p style="margin:0 0 12px"><a href="guides/tv.html">Full TV guide</a> · <a href="guides/install-on-tv.pdf">PDF</a></p></details>`;
 function tvSection(list, steps) {
   const tv = list.filter(a => isTV(a) && a.tvCode);
   if (!tv.length) return '';
@@ -319,7 +330,7 @@ const PHONE_STEPS = `<details class="tvhow"><summary>How to install an app on an
   <li>When the download finishes, tap the file to open it. If Chrome says it can't install apps, tap <b>Settings</b>, turn on <b>Allow from this source</b> and go back.</li>
   <li>Tap <b>Install</b>. If Play Protect warns you, tap <b>More details › Install anyway</b>. Then tap <b>Open</b>.</li>
   <li>The apps update themselves when a new version is out.</li>
-</ol></details>`;
+</ol><p style="margin:0 0 12px"><a href="guides/phone.html">Full phone guide</a> · <a href="guides/install-on-phone.pdf">PDF</a></p></details>`;
 function phoneSection(list, steps) {
   const ph = list.filter(a => isPhone(a) && a.links?.android);
   if (!ph.length) return '';
@@ -339,6 +350,13 @@ function pcSection(list, steps) {
   if (!pc.length) return '';
   return section('PC apps', 'For Windows 10 and 11 computers.', `<div class="tvgrid">${pc.map(pcCard).join('')}</div>${steps ? PC_STEPS : ''}`);
 }
+// The App Bazaar app itself: a strip on the Apps, TV and Phone tabs with its download, Downloader code and the install guides.
+const BAZAAR_APK = 'https://github.com/NaseerBabar786/live-tv-app/releases/download/app-bazaar/AppBazaar.apk';
+const getAppStrip = () => `<section class="getapp"><img src="icons/app-bazaar.svg" alt=""><div><h2>Get the App Bazaar app</h2>
+  <p>Install and update all our apps from one app, on your Android phone or your TV. New apps show up in it by themselves.</p></div>
+  <div class="row2"><a class="go" href="${BAZAAR_APK}" data-dl="app-bazaar" target="_blank" rel="noopener">Download for phone</a>
+  <span class="code"><span>On a TV, type in Downloader:</span><b>tv.bulkbazaar.ca/bazaar</b>${copyBtn('tv.bulkbazaar.ca/bazaar')}</span>
+  <a class="more" href="guides/tv.html">TV install guide</a><a class="more" href="guides/phone.html">Phone install guide</a></div></section>`;
 const empty = (t, s) => `<div class="empty"><b>${t}</b><span>${s}</span></div>`;
 
 function renderForYou(list) {
@@ -347,7 +365,7 @@ function renderForYou(list) {
   if (!list.length) return empty(`No ${TAB_NAMES[tab]} yet`, tab === 'game' ? 'Our first game is on the way. Check back soon.' : 'New apps will show up here.');
   const feats = list.filter(a => a.featured);
   const newest = [...list].sort((a, b) => b.updated.localeCompare(a.updated));
-  let html = '';
+  let html = ['app', 'tv', 'phone'].includes(tab) ? getAppStrip() : '';
   if (tab === 'tv') html += tvSection(list, true);
   if (tab === 'phone') html += phoneSection(list, true);
   if (tab === 'pc') html += pcSection(list, true);
