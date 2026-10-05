@@ -43,7 +43,7 @@
       },
       "banner": "images/live-tv.jpg",
       "featured": true,
-      "version": "1.9.13",
+      "version": "1.9.14",
       "updated": "2026-10-05",
       "platforms": [
         "Android",
@@ -108,7 +108,8 @@
       "links": {
         "android": "https://github.com/NaseerBabar786/live-tv-app/releases/download/iqra-quran/IqraQuran.apk"
       },
-      "tvCode": "tv.bulkbazaar.ca/quran"
+      "tvCode": "tv.bulkbazaar.ca/quran",
+      "package": "com.naseerbabar.iqraquran"
     },
     {
       "id": "live-cam",
