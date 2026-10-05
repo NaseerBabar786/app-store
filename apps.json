@@ -17,7 +17,7 @@
       },
       "banner": "images/app-bazaar.jpg",
       "featured": true,
-      "version": "1.0.0",
+      "version": "1.1.0",
       "updated": "2026-10-05",
       "platforms": [
         "Android",
@@ -25,7 +25,7 @@
       ],
       "package": "com.naseerbabar.appbazaar",
       "description": "The App Bazaar store as an app. It lists every app on apps.bulkbazaar.ca with its picture and description. Press Install and it downloads the app and opens Android's installer for you. Apps you already have show Open, and Update when a newer version is out; the Updates tab lists them all. New apps added to App Bazaar appear in the app by themselves. Works with a TV remote on Google TV, Android TV and Fire TV, and with touch on phones and tablets. App Bazaar updates itself too.",
-      "whatsNew": "First version.",
+      "whatsNew": "Version 1.1.0: a new look in the website's colours with the App Bazaar logo and big featured banners, an Update all button that updates every app on your device in one go, and App Bazaar now updates itself as soon as a new version is out.",
       "links": {
         "android": "https://github.com/NaseerBabar786/live-tv-app/releases/download/app-bazaar/AppBazaar.apk"
       },
