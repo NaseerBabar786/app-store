@@ -7,7 +7,7 @@
   "apps": [
     {
       "id": "live-tv",
-      "name": "Live TV",
+      "name": "Free Live TV",
       "type": "app",
       "tagline": "Free live TV channels by country, on your phone or TV",
       "category": "Entertainment",
@@ -49,7 +49,7 @@
         "Android",
         "Android TV"
       ],
-      "description": "A streaming-style home screen for free live TV: big channel cards in rows by country and by language, with a live preview of the highlighted channel. Many channels show what's on now and next. Urdu and Hindi dramas, movies, shows and kids' programmes from the channels' own official uploads sit in the same rows, with a row to continue what you started. Installs next to Live TV, needs no sign-in, works with TV remotes and updates itself.",
+      "description": "A streaming-style home screen for free live TV: big channel cards in rows by country and by language, with a live preview of the highlighted channel. Many channels show what's on now and next. Urdu and Hindi dramas, movies, shows and kids' programmes from the channels' own official uploads sit in the same rows, with a row to continue what you started. Installs next to Free Live TV, needs no sign-in, works with TV remotes and updates itself.",
       "whatsNew": "First version.",
       "links": {
         "android": "https://github.com/NaseerBabar786/live-tv-app/releases/download/live-tv-max/LiveTVMax.apk",
