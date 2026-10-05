@@ -219,6 +219,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
       <button class="tab" role="tab" data-tab="tv" aria-selected="false">TV<span class="long"> apps</span></button>
       <button class="tab" role="tab" data-tab="phone" aria-selected="false">Phone<span class="long"> apps</span></button>
       <button class="tab" role="tab" data-tab="pc" aria-selected="false">PC<span class="long"> apps</span></button>
+      <button class="tab" role="tab" data-tab="admin" aria-selected="false" id="adminTab" hidden>Admin</button>
     </nav>
     <label class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/></svg>
       <input id="q" type="search" placeholder="Search for apps &amp; games" aria-label="Search for apps and games" autocomplete="off"></label>
@@ -254,7 +255,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
 const isPaid = a => !!a.price;
 const priceOf = a => a.price ? esc(a.price) : 'Free';
 const LINK_LABELS = { android: 'Install', web: 'Open web app', ios: 'Get for iPhone', windows: 'Download for Windows', windowsPortable: 'Windows portable (no install)', mac: 'Download for Mac', source: 'Source code' };
-const TAB_NAMES = { app: 'apps', game: 'games', tv: 'TV apps', phone: 'phone apps', pc: 'PC apps' };
+const TAB_NAMES = { app: 'apps', game: 'games', tv: 'TV apps', phone: 'phone apps', pc: 'PC apps', admin: 'admin apps' };
 let DATA = { store: {}, apps: [] }, tab = 'app', view = 'foryou', cat = null, chart = 'free', query = '';
 const $ = s => document.querySelector(s);
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -277,7 +278,11 @@ function icon(a, cls = '') {
 const isTV = a => a.platforms.some(p => /TV/i.test(p));
 const isPhone = a => a.platforms.some(p => p === 'Android' || /phone/i.test(p));
 const isPC = a => a.platforms.some(p => p === 'Windows' || /PC/.test(p));
-const inTab = a => tab === 'tv' ? isTV(a) : tab === 'phone' ? isPhone(a) : tab === 'pc' ? isPC(a) : (a.type || 'app') === tab;
+// Admin section: apps in admin-apps.json show only to the store owner, signed in with Google.
+const ADMIN_EMAILS = ['naseerahmadbabar@gmail.com'];
+let PUBLIC_APPS = [], ADMIN_APPS = [];
+const isAdmin = () => !!USER?.email && ADMIN_EMAILS.includes(USER.email.toLowerCase());
+const inTab = a => tab === 'admin' ? !!a.adminOnly : a.adminOnly ? false : tab === 'tv' ? isTV(a) : tab === 'phone' ? isPhone(a) : tab === 'pc' ? isPC(a) : (a.type || 'app') === tab;
 const fmtDate = d => { try { return new Date(d + 'T00:00').toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' }); } catch { return d; } };
 const meta = a => `${esc(a.category)} · ${isTV(a) ? 'Phone & TV' : isPC(a) && isPhone(a) ? 'Phone & PC' : esc(a.platforms[0])}`;
 
@@ -337,6 +342,8 @@ function pcSection(list, steps) {
 const empty = (t, s) => `<div class="empty"><b>${t}</b><span>${s}</span></div>`;
 
 function renderForYou(list) {
+  if (tab === 'admin') return section('Admin', 'Private apps. Only you see this section, when signed in.', list.length
+    ? `<div class="tvgrid">${list.map(a => a.links?.android ? phoneCard(a) : '').join('')}</div>` : empty('No admin apps', ''));
   if (!list.length) return empty(`No ${TAB_NAMES[tab]} yet`, tab === 'game' ? 'Our first game is on the way. Check back soon.' : 'New apps will show up here.');
   const feats = list.filter(a => a.featured);
   const newest = [...list].sort((a, b) => b.updated.localeCompare(a.updated));
@@ -345,7 +352,7 @@ function renderForYou(list) {
   if (tab === 'phone') html += phoneSection(list, true);
   if (tab === 'pc') html += pcSection(list, true);
   if (feats.length) html += `<section><div class="row hero-row" id="r-hero">${feats.map(heroCard).join('')}</div></section>`;
-  if (tab === 'app') html += tvSection(DATA.apps, false) + phoneSection(DATA.apps, false) + pcSection(DATA.apps, false);
+  if (tab === 'app') html += tvSection(PUBLIC_APPS, false) + phoneSection(PUBLIC_APPS, false) + pcSection(PUBLIC_APPS, false);
   html += section('Recommended for you', '', `<div class="row card-row" id="r-rec">${list.map(card).join('')}</div>`, 'r-rec');
   const free = list.filter(a => !isPaid(a)), paid = list.filter(isPaid);
   if (free.length) html += section('Top free ' + TAB_NAMES[tab], '', `<div class="chart">${free.map(rank).join('')}</div>`);
@@ -407,7 +414,7 @@ function renderApp(a) {
   $('#views').hidden = true;
   const links = Object.entries(a.links || {}).filter(([k]) => k !== 'buy' && !(isPaid(a) && k === 'android'));
   const [first, ...rest] = isPaid(a) && a.links?.buy ? [['buy', a.links.buy], ...links] : links;
-  const more = DATA.apps.filter(x => x.id !== a.id);
+  const more = DATA.apps.filter(x => x.id !== a.id && !!x.adminOnly === !!a.adminOnly);
   const shots = a.screenshots?.length ? a.screenshots : a.banner ? [a.banner] : [];
   $('#view').innerHTML = `<div class="app"><div>
     <div class="ahead"><div><h1>${esc(a.name)}</h1><div class="dev">${esc(DATA.store.developer || '')}</div><div class="tag">${esc(a.tagline)}</div></div>${icon(a, 'xl')}</div>
@@ -512,7 +519,7 @@ async function initAuth() {
   } catch { $('#signinNote').textContent = 'Sign-in could not load. Check your connection and refresh.'; return; }
   renderWho();
   FB.auth.onAuthStateChanged(async u => {
-    USER = u; renderWho();
+    USER = u; renderWho(); loadAdmin();
     if (!u) return;
     try {
       const snap = await FB.db.collection('users').doc(u.uid).get();
@@ -536,8 +543,18 @@ $('#clearData').addEventListener('click', () => {
   else { $('#clearData').dataset.armed = '1'; $('#clearNote').textContent = 'Tap again to clear My apps and Wishlist.'; }
 });
 
+async function loadAdmin() {
+  const on = isAdmin();
+  $('#adminTab').hidden = !on;
+  if (on && !ADMIN_APPS.length) {
+    try { ADMIN_APPS = ((await (await fetch('admin-apps.json', { cache: 'no-store' })).json()).apps || []).map(a => ({ ...a, adminOnly: true })); } catch {}
+  }
+  if (!on) { ADMIN_APPS = []; if (tab === 'admin') tab = 'app'; }
+  DATA.apps = [...PUBLIC_APPS, ...(on ? ADMIN_APPS : [])];
+  updateCounts(); route();
+}
 initAuth();
-fetch('apps.json').then(r => r.json()).then(d => { DATA = d; updateCounts(); route(); })
+fetch('apps.json').then(r => r.json()).then(d => { DATA = d; PUBLIC_APPS = d.apps; loadAdmin(); })
   .catch(() => { $('#view').innerHTML = empty('Could not load the app list', 'Keep apps.json in the same folder as this page.'); });
 </script>
 </body>

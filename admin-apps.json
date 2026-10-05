@@ -1,0 +1,27 @@
+{
+  "apps": [
+    {
+      "id": "notes-for-claude",
+      "name": "Notes for Claude",
+      "type": "app",
+      "tagline": "Voice notes, a work list and ideas, sent to Claude in one tap",
+      "category": "Productivity",
+      "icon": {
+        "image": "icons/notes-for-claude.svg",
+        "color": "#D97757"
+      },
+      "banner": "images/notes-for-claude.jpg",
+      "featured": false,
+      "version": "1.0.0",
+      "updated": "2026-10-05",
+      "platforms": [
+        "Android"
+      ],
+      "description": "Keep everything you want Claude to work on in one place on your phone. Type work to do or ideas, or tap the microphone and speak: your phone's speech to text turns voice notes into text (English, Urdu, Hindi or Punjabi). Every note has a topic, like Live TV or Website. When you're ready, tap Send to Claude: your ticked notes become one tidy message grouped by topic, copied and opened in Claude. Give a topic its own Claude project link and its notes go straight to that project chat. Sent notes are kept in a Sent list, and the app updates itself.",
+      "whatsNew": "First version.",
+      "links": {
+        "android": "https://github.com/NaseerBabar786/live-tv-app/releases/download/claude-notes/NotesForClaude.apk"
+      }
+    }
+  ]
+}
