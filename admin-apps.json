@@ -21,7 +21,8 @@
       "whatsNew": "First version.",
       "links": {
         "android": "https://github.com/NaseerBabar786/live-tv-app/releases/download/claude-notes/NotesForClaude.apk"
-      }
+      },
+      "package": "com.naseerbabar.claudenotes"
     }
   ]
 }
