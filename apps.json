@@ -83,6 +83,32 @@
       "tvCode": "tv.bulkbazaar.ca/cam"
     },
     {
+      "id": "multi-chat",
+      "name": "Multi Chat",
+      "type": "app",
+      "tagline": "All your WhatsApp accounts in one app, on your PC and phone",
+      "category": "Communication",
+      "icon": {
+        "image": "icons/multi-chat.svg",
+        "color": "#0F7A6E"
+      },
+      "banner": "images/multi-chat.jpg",
+      "featured": true,
+      "version": "1.0.0",
+      "updated": "2026-10-05",
+      "platforms": [
+        "Android",
+        "Windows"
+      ],
+      "description": "Use several WhatsApp accounts at the same time, each in its own separate box: business, personal and more. Each account is the official WhatsApp Web, signed in with its own QR code (or “Log in with phone number” on the same phone), so nothing is modified and your accounts stay safe. Give every account a name, colour and photo, see its unread count, and get notifications that say which account a message is for. Mute an account or set quiet hours, save quick replies and type them into a chat with one tap, and lock the app with a PIN (or fingerprint on the phone). On a Windows PC you can show all accounts side by side, and it runs in the tray. Multi Chat never sends messages by itself, and it is not made by or connected with WhatsApp or Meta.",
+      "whatsNew": "First version, for Windows PCs and Android phones.",
+      "links": {
+        "android": "https://github.com/NaseerBabar786/live-tv-app/releases/download/multichat/MultiChat.apk",
+        "windows": "https://github.com/NaseerBabar786/live-tv-app/releases/download/multichat-pc/MultiChat-Setup.exe",
+        "windowsPortable": "https://github.com/NaseerBabar786/live-tv-app/releases/download/multichat-pc/MultiChat-Portable.exe"
+      }
+    },
+    {
       "id": "notes-for-claude",
       "name": "Notes for Claude",
       "type": "app",
