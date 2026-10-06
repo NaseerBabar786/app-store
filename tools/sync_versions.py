@@ -3,6 +3,11 @@
 For every app with an Android download, it downloads the APK, reads its package name and
 version with aapt, and writes them into "package" and "version" (and "updated" when the version
 changes). The App Bazaar Android app uses these to show Install, Update or Open.
+
+Owner's release rule: versions must never move ahead on their own. The download links here point
+only at the public releases, which change only when the owner has tested a build and said yes (the
+"Release approved build" workflow in live-tv-app). Owner-only test builds live in the "test"
+pre-release and are never read here.
 """
 import datetime, glob, json, os, re, subprocess, sys, tempfile, urllib.request
 from collections import OrderedDict
@@ -40,6 +45,9 @@ def main():
         for app in data.get("apps", []):
             url = (app.get("links") or {}).get("android")
             if not url or app.get("price") or app.get("example"):
+                continue
+            if "/download/test/" in url:  # owner-only test builds never reach the store
+                print(f"{app.get('id')}: skipped, links to a test build")
                 continue
             try:
                 pkg, ver = badging(tool, url)
