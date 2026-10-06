@@ -299,7 +299,8 @@ let PUBLIC_APPS = [], ADMIN_APPS = [];
 const isAdmin = () => !!USER?.email && ADMIN_EMAILS.includes(USER.email.toLowerCase());
 const inTab = a => tab === 'admin' ? !!a.adminOnly : a.adminOnly ? false : tab === 'tv' ? isTV(a) : tab === 'phone' ? isPhone(a) : tab === 'pc' ? isPC(a) : (a.type || 'app') === tab;
 const fmtDate = d => { try { return new Date(d + 'T00:00').toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' }); } catch { return d; } };
-const meta = a => `${esc(a.category)} · ${isTV(a) ? 'Phone & TV' : isPC(a) && isPhone(a) ? 'Phone & PC' : esc(a.platforms[0])}`;
+const both = a => isTV(a) ? (isPhone(a) ? 'Phone & TV' : 'TV') : isPC(a) && isPhone(a) ? 'Phone & PC' : esc(a.platforms[0]);
+const meta = a => `${esc(a.category)} · ${both(a)}`;
 
 function section(title, sub, body, rowId) {
   return `<section><div class="sec-head"><div><h2>${title}</h2>${sub ? `<p>${sub}</p>` : ''}</div>
@@ -324,7 +325,7 @@ const TV_STEPS = `<details class="tvhow"><summary>How to install an app on Googl
 function tvSection(list, steps) {
   const tv = list.filter(a => isTV(a) && a.tvCode);
   if (!tv.length) return '';
-  return section('TV apps', 'Made for Google TV, Android TV and Fire TV remotes. Each one also works on phones.', `<div class="tvgrid">${tv.map(tvCard).join('')}</div>${steps ? TV_STEPS : ''}`);
+  return section('TV apps', 'Made for Google TV, Android TV and Fire TV remotes. Most also work on phones.', `<div class="tvgrid">${tv.map(tvCard).join('')}</div>${steps ? TV_STEPS : ''}`);
 }
 // Phone apps: installed straight from the Install button on an Android phone.
 const phoneCard = a => `<div class="tvcard">${icon(a, 's')}<a class="t" href="#${esc(a.id)}" style="text-decoration:none"><b>${esc(a.name)}</b><small>${esc(a.tagline)}</small></a>
@@ -447,7 +448,7 @@ function renderApp(a) {
       <div class="stat"><b>${priceOf(a)}</b><small>${isPaid(a) ? 'One-time purchase' : 'No ads, no sign-up'}</small></div>
       <div class="stat"><b>${esc(a.version)}</b><small>Version</small></div>
       <div class="stat"><b>${esc(a.category)}</b><small>Category</small></div>
-      <div class="stat"><b>${isTV(a) ? 'Phone + TV' : isPC(a) && isPhone(a) ? 'Phone + PC' : esc(a.platforms[0])}</b><small>${esc(a.platforms.join(', '))}</small></div>
+      <div class="stat"><b>${both(a).replace(' & ', ' + ')}</b><small>${esc(a.platforms.join(', '))}</small></div>
     </div>
     <div class="btns">
       ${first ? `<a class="install" href="${esc(first[1])}" ${first[0] === 'android' ? `data-dl="${esc(a.id)}"` : ''} target="_blank" rel="noopener">${first[0] === 'buy' ? `Buy ${esc(a.price)}` : first[0] === 'android' && ACCT.library[a.id] ? (hasUpdate(a) ? 'Update' : 'Install again') : esc(LINK_LABELS[first[0]] || first[0])}</a>` : ''}
