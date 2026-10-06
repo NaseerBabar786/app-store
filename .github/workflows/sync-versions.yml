@@ -1,7 +1,10 @@
 name: Sync app versions
 
-# Every hour, reads the real version of each app's APK and updates apps.json, so the
-# website and the App Bazaar app show the right version and offer updates.
+# Every hour, reads the real version of each app's public (owner-approved) APK and updates
+# apps.json, so the website and the App Bazaar app show the right version and offer updates.
+# It never advances to an untested build: new builds go to the owner-only "test" release first,
+# and the public downloads change only after the owner approves (live-tv-app's
+# "Release approved build" workflow). Run it by hand right after an approval to update at once.
 on:
   schedule:
     - cron: "17 * * * *"
