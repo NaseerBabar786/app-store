@@ -33,7 +33,7 @@
     },
     {
       "id": "live-tv",
-      "name": "Free Live TV",
+      "name": "Cable TV",
       "type": "app",
       "tagline": "Free live TV channels by country, on your phone or TV",
       "category": "Entertainment",
@@ -51,7 +51,7 @@
       ],
       "package": "com.naseerbabar.livetv",
       "description": "Watch live channels that broadcasters stream publicly, sorted by country. Opens on Pakistani, Indian (Hindi, Urdu, Punjabi) and Canadian channels, with a channel grid, logos, search, favourites and a full-screen player. Works with TV remotes, supports picture-in-picture, and can also play your own M3U playlist. The app updates itself when a new version is out.",
-      "whatsNew": "Version 1.9.10: Browse mode, a home screen with big channel cards, plus News, CP24 and Home screens, games and the Library of movies and dramas.",
+      "whatsNew": "Version 1.9.45: Free Live TV is now called Cable TV. Same free app, channels, favourites and settings.",
       "links": {
         "android": "https://github.com/NaseerBabar786/live-tv-app/releases/latest/download/LiveTV.apk",
         "web": "https://tv.bulkbazaar.ca"
@@ -77,7 +77,7 @@
         "Android TV"
       ],
       "package": "com.naseerbabar.livetvmax",
-      "description": "A streaming-style home screen for free live TV: big channel cards in rows by country and by language, with a live preview of the highlighted channel. Many channels show what's on now and next. Urdu and Hindi dramas, movies, shows and kids' programmes from the channels' own official uploads sit in the same rows, with a row to continue what you started. Installs next to Free Live TV, needs no sign-in, works with TV remotes and updates itself.",
+      "description": "A streaming-style home screen for free live TV: big channel cards in rows by country and by language, with a live preview of the highlighted channel. Many channels show what's on now and next. Urdu and Hindi dramas, movies, shows and kids' programmes from the channels' own official uploads sit in the same rows, with a row to continue what you started. Installs next to Cable TV, needs no sign-in, works with TV remotes and updates itself.",
       "whatsNew": "First version.",
       "links": {
         "android": "https://github.com/NaseerBabar786/live-tv-app/releases/download/live-tv-max/LiveTVMax.apk",
