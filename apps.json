@@ -51,7 +51,7 @@
       ],
       "package": "com.naseerbabar.livetv",
       "description": "Watch live channels that broadcasters stream publicly, sorted by country. Opens on Pakistani, Indian (Hindi, Urdu, Punjabi) and Canadian channels, with a channel grid, logos, search, favourites and a full-screen player. Works with TV remotes, supports picture-in-picture, and can also play your own M3U playlist. The app updates itself when a new version is out.",
-      "whatsNew": "Version 1.9.47: Free Live TV is now called Cable TV. Same free app, channels, favourites and settings.",
+      "whatsNew": "Version 1.9.48: Free Live TV is now called Cable TV. Same free app, channels, favourites and settings.",
       "links": {
         "android": "https://github.com/NaseerBabar786/live-tv-app/releases/latest/download/LiveTV.apk",
         "web": "https://tv.bulkbazaar.ca"
