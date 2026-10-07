@@ -189,6 +189,32 @@ main{padding-block:20px 48px;display:grid;gap:40px}
 .menu .signin button{border:1px solid var(--line);background:var(--bg);border-radius:999px;height:36px;font-weight:500;color:var(--ink);cursor:pointer}
 .menu .signin button:hover{background:var(--hover)}
 .menu .signin small{color:var(--muted);font-size:.75rem;text-align:center}
+.menu .signin .alt{background:var(--green);border-color:var(--green);color:#fff}
+.menu .signin .alt:hover{background:var(--green-dark)}
+/* email sign-in dialog */
+.auth{border:0;border-radius:28px;padding:0;width:min(420px,calc(100vw - 32px));box-shadow:0 4px 8px 3px rgba(60,64,67,.15),0 1px 3px rgba(60,64,67,.3);color:var(--ink);background:var(--bg)}
+.auth::backdrop{background:rgba(32,33,36,.5)}
+.auth form{padding:28px 24px 20px;display:grid;gap:14px}
+.auth .ahd{display:flex;align-items:center;gap:12px}
+.auth .ahd img{width:36px;height:36px}
+.auth h2{font-family:var(--display);font-size:1.5rem;font-weight:400}
+.auth .sub{color:var(--muted);margin-top:-6px}
+.auth .seg{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--line);border-radius:999px;overflow:hidden}
+.auth .seg button{border:0;background:none;height:36px;font-weight:500;cursor:pointer;color:var(--muted)}
+.auth .seg button[aria-pressed="true"]{background:var(--green-soft);color:var(--green-dark)}
+.auth label{display:grid;gap:4px;font-size:.75rem;color:var(--muted);font-weight:500}
+.auth input{height:48px;border:1px solid #80868b;border-radius:4px;padding:0 14px;font-size:1rem;background:var(--bg);color:var(--ink)}
+.auth input:focus{outline:none;border:2px solid var(--green);padding:0 13px}
+.auth .row2{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.auth .show{display:flex;align-items:center;gap:6px;font-size:.8125rem;color:var(--muted);font-weight:400}
+.auth .show input{height:auto;width:auto}
+.auth .link{background:none;border:0;color:var(--green);font-weight:500;cursor:pointer;padding:6px 0;font-size:.8125rem}
+.auth .msg{min-height:1.2em;font-size:.8125rem;color:#c5221f}
+.auth .msg.ok{color:var(--green-dark)}
+.auth .acts{display:flex;justify-content:flex-end;gap:8px;margin-top:4px}
+.auth .acts .install{padding:0 28px;cursor:pointer}
+.auth .acts .install[disabled]{opacity:.6;cursor:default}
+.auth .fine{color:var(--muted);font-size:.75rem;line-height:1.4}
 .menu a,.menu .mi{display:flex;align-items:center;gap:18px;padding:12px 24px;text-decoration:none;color:var(--ink);background:none;border:0;width:100%;text-align:left;cursor:pointer;font-size:.875rem}
 .menu a:hover,.menu .mi:hover{background:var(--hover)}
 .menu svg{width:22px;height:22px;color:var(--muted);flex:none}
@@ -239,7 +265,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
       <button class="avatar" id="acctBtn" aria-haspopup="true" aria-expanded="false" aria-label="Your account"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 12a4.5 4.5 0 100-9 4.5 4.5 0 000 9zm0 2c-4 0-8 2-8 5v2h16v-2c0-3-4-5-8-5z"/></svg></button>
       <div class="menu" id="menu" hidden>
         <div class="who"><span class="avatar" id="whoAvatar"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 12a4.5 4.5 0 100-9 4.5 4.5 0 000 9zm0 2c-4 0-8 2-8 5v2h16v-2c0-3-4-5-8-5z"/></svg></span><span><b id="whoName">Guest</b><small id="whoSub">Saved on this device only</small></span></div>
-        <div class="signin"><button id="signinBtn" type="button">Sign in with Google</button><button id="signoutBtn" type="button" hidden>Sign out</button><small id="signinNote">Sign in to keep My apps and Wishlist on all your devices.</small></div>
+        <div class="signin"><button id="emailBtn" class="alt" type="button">Sign in with email</button><button id="signinBtn" type="button">Sign in with Google</button><button id="pwBtn" type="button" hidden>Change password</button><button id="signoutBtn" type="button" hidden>Sign out</button><small id="signinNote">Sign in to keep My apps and Wishlist on all your devices.</small></div>
         <hr>
         <a href="#library"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>My apps &amp; updates<span class="cnt" id="libCount"></span></a>
         <a href="#wishlist"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M6 3h12v18l-6-4-6 4z"/></svg>Wishlist<span class="cnt" id="wishCount"></span></a>
@@ -251,6 +277,21 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
     </div>
   </div>
 </div>
+<dialog class="auth" id="authDlg" aria-labelledby="authTitle">
+  <form id="authForm" novalidate>
+    <div class="ahd"><img src="icons/store-icon.svg" alt=""><h2 id="authTitle">Sign in</h2></div>
+    <p class="sub" id="authSub">Use the same email and password as the Cable TV app.</p>
+    <div class="seg" id="authSeg"><button type="button" data-mode="in" aria-pressed="true">Sign in</button><button type="button" data-mode="up" aria-pressed="false">Create account</button></div>
+    <label id="nameRow" hidden>Your name<input id="authName" autocomplete="name" maxlength="60"></label>
+    <label id="emailRow">Email<input id="authEmail" type="email" autocomplete="email" inputmode="email" required></label>
+    <label id="curRow" hidden>Current password<input id="authCur" type="password" autocomplete="current-password"></label>
+    <label id="passRow">Password<input id="authPass" type="password" autocomplete="current-password" minlength="6" required></label>
+    <div class="row2"><label class="show"><input type="checkbox" id="authShow">Show password</label><button type="button" class="link" id="forgotBtn">Forgot password?</button></div>
+    <p class="msg" id="authMsg" role="alert"></p>
+    <p class="fine" id="authFine">One account works in App Bazaar and Cable TV.</p>
+    <div class="acts"><button type="button" class="ghost" id="authCancel">Cancel</button><button type="submit" class="install" id="authGo">Sign in</button></div>
+  </form>
+</dialog>
 <div class="views" id="views">
   <div class="wrap">
     <button class="vchip" data-view="foryou" aria-pressed="true">For you</button>
@@ -296,7 +337,8 @@ const pcLinks = a => PC_LINKS.filter(k => a.links?.[k]);
 // Admin section: apps in admin-apps.json show only to the store owner, signed in with Google.
 const ADMIN_EMAILS = ['naseerahmadbabar@gmail.com'];
 let PUBLIC_APPS = [], ADMIN_APPS = [];
-const isAdmin = () => !!USER?.email && ADMIN_EMAILS.includes(USER.email.toLowerCase());
+// Email accounts count as the owner only once their address is verified (anyone can type any email when signing up).
+const isAdmin = () => !!USER?.email && ADMIN_EMAILS.includes(USER.email.toLowerCase()) && (SRC === 'google' || USER.emailVerified);
 const inTab = a => tab === 'admin' ? !!a.adminOnly : a.adminOnly ? false : tab === 'tv' ? isTV(a) : tab === 'phone' ? isPhone(a) : tab === 'pc' ? isPC(a) : (a.type || 'app') === tab;
 const fmtDate = d => { try { return new Date(d + 'T00:00').toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' }); } catch { return d; } };
 const both = a => isTV(a) ? (isPhone(a) ? 'Phone & TV' : 'TV') : isPC(a) && isPhone(a) ? 'Phone & PC' : esc(a.platforms[0]);
@@ -518,53 +560,144 @@ function closeMenu() { $('#menu').hidden = true; $('#acctBtn').setAttribute('ari
 $('#acctBtn').addEventListener('click', e => { e.stopPropagation(); const open = $('#menu').hidden; $('#menu').hidden = !open; $('#acctBtn').setAttribute('aria-expanded', String(open)); $('#clearNote').textContent = ''; });
 document.addEventListener('click', e => { if (!e.target.closest('.acct')) closeMenu(); });
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
-// sign-in (Firebase + Google). Turned on by filling in firebase-config.js
-let FB = null, USER = null;
+// sign-in. Google accounts use App Bazaar's Firebase project (firebase-config.js). Email and password
+// accounts use the Cable TV app's project (TV_FIREBASE_CONFIG), so one email login works in both.
+let FB = null, TV = null, USER = null, SRC = '', gUser = null, tUser = null, loadedUid = '';
 const loadScript = src => new Promise((ok, no) => { const s = document.createElement('script'); s.src = src; s.onload = ok; s.onerror = no; document.head.appendChild(s); });
 function renderWho() {
   const img = u => u.photoURL ? `<img src="${esc(u.photoURL)}" alt="" referrerpolicy="no-referrer">` : esc((u.displayName || u.email || '?')[0].toUpperCase());
   $('#whoAvatar').innerHTML = USER ? img(USER) : PERSON_SVG;
   $('#acctBtn').innerHTML = USER ? img(USER) : PERSON_SVG;
   $('#whoName').textContent = USER ? (USER.displayName || 'Signed in') : 'Guest';
-  $('#whoSub').textContent = USER ? (USER.email || '') : (FB ? 'Not signed in' : 'Saved on this device only');
-  $('#signinBtn').hidden = !!USER; $('#signoutBtn').hidden = !USER;
+  $('#whoSub').textContent = USER ? (USER.email || '') : (FB || TV ? 'Not signed in' : 'Saved on this device only');
+  $('#signinBtn').hidden = $('#emailBtn').hidden = !!USER; $('#signoutBtn').hidden = !USER; $('#pwBtn').hidden = SRC !== 'email';
   $('#signinNote').textContent = USER ? 'My apps and Wishlist are saved to your account.' : 'Sign in to keep My apps and Wishlist on all your devices.';
 }
+// Where the signed-in person's lists are kept: users/{uid} for Google, appBazaar/{uid} in the Cable TV project for email.
+const cloudDoc = () => SRC === 'email' ? TV.db.collection('appBazaar').doc(USER.uid) : FB.db.collection('users').doc(USER.uid);
 function pushCloud() {
-  if (!FB || !USER) return;
-  FB.db.collection('users').doc(USER.uid).set({ library: ACCT.library, wishlist: ACCT.wishlist, updated: new Date().toISOString() }, { merge: true })
+  if (!USER) return;
+  const data = { library: ACCT.library, wishlist: ACCT.wishlist, updated: new Date().toISOString() };
+  (SRC === 'email' ? cloudDoc().set(data) : cloudDoc().set(data, { merge: true }))
     .catch(() => { $('#signinNote').textContent = 'Could not save to your account. Your list is still saved on this device.'; });
 }
+async function onUser() {
+  USER = gUser || tUser; SRC = gUser ? 'google' : tUser ? 'email' : '';
+  renderWho(); loadAdmin();
+  if (!USER) { loadedUid = ''; return; }
+  if (loadedUid === USER.uid) return;
+  loadedUid = USER.uid;
+  try {
+    const snap = await cloudDoc().get();
+    const r = snap.exists ? snap.data() : {};
+    ACCT = { library: Object.assign({}, r.library || {}, ACCT.library), wishlist: [...new Set([...(r.wishlist || []), ...ACCT.wishlist])] };
+    saveAcct(); route();
+  } catch { $('#signinNote').textContent = 'Signed in. Your list is saved on this device for now.'; }
+}
 async function initAuth() {
-  const cfg = window.FIREBASE_CONFIG;
-  if (!cfg || !cfg.apiKey) return;
+  const cfg = window.FIREBASE_CONFIG, tvCfg = window.TV_FIREBASE_CONFIG;
+  if (!cfg?.apiKey && !tvCfg?.apiKey) return;
   try {
     const v = 'https://cdn.jsdelivr.net/npm/firebase@10.12.2/';
     await loadScript(v + 'firebase-app-compat.js');
     await Promise.all([loadScript(v + 'firebase-auth-compat.js'), loadScript(v + 'firebase-firestore-compat.js')]);
-    firebase.initializeApp(cfg);
-    FB = { auth: firebase.auth(), db: firebase.firestore() };
+    if (cfg?.apiKey) { const app = firebase.initializeApp(cfg); FB = { auth: app.auth(), db: app.firestore() }; }
+    if (tvCfg?.apiKey) { const app = firebase.initializeApp(tvCfg, 'tv'); TV = { auth: app.auth(), db: app.firestore() }; }
   } catch { $('#signinNote').textContent = 'Sign-in could not load. Check your connection and refresh.'; return; }
   renderWho();
-  FB.auth.onAuthStateChanged(async u => {
-    USER = u; renderWho(); loadAdmin();
-    if (!u) return;
-    try {
-      const snap = await FB.db.collection('users').doc(u.uid).get();
-      const r = snap.exists ? snap.data() : {};
-      ACCT = { library: Object.assign({}, r.library || {}, ACCT.library), wishlist: [...new Set([...(r.wishlist || []), ...ACCT.wishlist])] };
-      saveAcct(); route();
-    } catch { $('#signinNote').textContent = 'Signed in, but your saved list could not load yet.'; }
-  });
+  FB?.auth.onAuthStateChanged(u => { gUser = u; onUser(); });
+  TV?.auth.onAuthStateChanged(u => { tUser = u; onUser(); });
 }
 $('#signinBtn').addEventListener('click', () => {
   if (!FB) { $('#signinNote').textContent = 'Sign-in is not switched on yet. Your list is saved on this device.'; return; }
-  FB.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).catch(e => {
+  FB.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(() => TV?.auth.signOut()).catch(e => {
     if (e.code !== 'auth/popup-closed-by-user') $('#signinNote').textContent = 'Sign-in did not finish. Please try again.';
   });
 });
 $('#signoutBtn').addEventListener('click', () => {
-  FB.auth.signOut().then(() => { ACCT = { library: {}, wishlist: [] }; try { localStorage.removeItem(KEY); } catch {} updateCounts(); route(); });
+  Promise.all([FB?.auth.signOut(), TV?.auth.signOut()]).then(() => { ACCT = { library: {}, wishlist: [] }; try { localStorage.removeItem(KEY); } catch {} updateCounts(); route(); });
+});
+
+// email and password dialog: sign in, create account, forgot password, change password
+let authMode = 'in';
+const AUTH_TEXT = {
+  in: ['Sign in', 'Use the same email and password as the Cable TV app.', 'Sign in'],
+  up: ['Create account', 'This account also works in the Cable TV app.', 'Create account'],
+  reset: ['Reset password', 'We’ll email you a link to choose a new password.', 'Send link'],
+  change: ['Change password', 'Your new password works in App Bazaar and Cable TV.', 'Change password'],
+};
+function authSet(mode) {
+  authMode = mode;
+  const [t, sub, go] = AUTH_TEXT[mode];
+  $('#authTitle').textContent = t; $('#authSub').textContent = sub; $('#authGo').textContent = go;
+  $('#authSeg').hidden = mode === 'reset' || mode === 'change';
+  $('#authSeg').querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', b.dataset.mode === mode));
+  $('#nameRow').hidden = mode !== 'up';
+  $('#emailRow').hidden = mode === 'change';
+  $('#curRow').hidden = mode !== 'change';
+  $('#passRow').hidden = mode === 'reset';
+  $('#passRow').firstChild.textContent = mode === 'change' ? 'New password' : 'Password';
+  $('#authPass').autocomplete = mode === 'in' ? 'current-password' : 'new-password';
+  $('#forgotBtn').hidden = mode !== 'in' && mode !== 'reset';
+  $('#forgotBtn').textContent = mode === 'reset' ? 'Back to sign in' : 'Forgot password?';
+  $('#forgotBtn').parentElement.querySelector('.show').hidden = mode === 'reset';
+  $('#authFine').textContent = mode === 'up' ? 'Use at least 6 characters for your password.' : 'One account works in App Bazaar and Cable TV.';
+  $('#authMsg').textContent = ''; $('#authMsg').className = 'msg';
+}
+function authOpen(mode) {
+  closeMenu();
+  if (!TV) { $('#signinNote').textContent = 'Sign-in is still loading. Try again in a moment.'; $('#menu').hidden = false; return; }
+  authSet(mode); $('#authPass').value = $('#authCur').value = '';
+  $('#authDlg').showModal();
+  (mode === 'change' ? $('#authCur') : mode === 'up' ? $('#authName') : $('#authEmail')).focus();
+}
+function authError(e) {
+  const c = e?.code || '';
+  if (c === 'auth/email-already-in-use') return 'There’s already an account with this email. Sign in instead, or use Forgot password.';
+  if (['auth/invalid-credential', 'auth/invalid-login-credentials', 'auth/wrong-password', 'auth/user-not-found'].includes(c)) return 'The email or password is wrong. Check them and try again.';
+  if (c === 'auth/invalid-email' || c === 'auth/missing-email') return 'Enter a real email address, like name@example.com.';
+  if (c === 'auth/weak-password' || c === 'auth/missing-password') return 'The password needs at least 6 characters.';
+  if (c === 'auth/too-many-requests') return 'Too many tries. Wait a few minutes and try again.';
+  if (c === 'auth/network-request-failed') return 'No internet connection. Check it and try again.';
+  if (c === 'auth/user-disabled') return 'This account has been turned off.';
+  if (c === 'auth/operation-not-allowed') return 'Email sign-in is switched off right now.';
+  return 'That didn’t work. Please try again.';
+}
+$('#emailBtn').addEventListener('click', () => authOpen('in'));
+$('#pwBtn').addEventListener('click', () => authOpen('change'));
+$('#authSeg').addEventListener('click', e => { const b = e.target.closest('button'); if (b) authSet(b.dataset.mode); });
+$('#forgotBtn').addEventListener('click', () => authSet(authMode === 'reset' ? 'in' : 'reset'));
+$('#authCancel').addEventListener('click', () => $('#authDlg').close());
+$('#authShow').addEventListener('change', e => { $('#authPass').type = $('#authCur').type = e.target.checked ? 'text' : 'password'; });
+$('#authForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  const name = $('#authName').value.trim(), email = $('#authEmail').value.trim(), pass = $('#authPass').value, cur = $('#authCur').value;
+  const say = (t, ok) => { $('#authMsg').textContent = t; $('#authMsg').className = ok ? 'msg ok' : 'msg'; };
+  if (authMode === 'up' && !name) return say('Enter your name.');
+  if (authMode !== 'change' && !email) return say('Enter your email.');
+  if (authMode !== 'reset' && pass.length < 6) return say('The password needs at least 6 characters.');
+  $('#authGo').disabled = true; say('');
+  try {
+    if (authMode === 'in') { await TV.auth.signInWithEmailAndPassword(email, pass); }
+    else if (authMode === 'up') {
+      const r = await TV.auth.createUserWithEmailAndPassword(email, pass);
+      await r.user.updateProfile({ displayName: name });
+      tUser = TV.auth.currentUser; onUser();
+    } else if (authMode === 'reset') {
+      await TV.auth.sendPasswordResetEmail(email);
+      say('If there’s an account for this email, a reset link is on its way. Check your inbox.', true);
+      return;
+    } else {
+      const u = TV.auth.currentUser;
+      await u.reauthenticateWithCredential(firebase.auth.EmailAuthProvider.credential(u.email, cur));
+      await u.updatePassword(pass);
+      say('Password changed.', true);
+      return;
+    }
+    await FB?.auth.signOut();
+    $('#authDlg').close();
+  } catch (err) { say(authError(err)); }
+  finally { $('#authGo').disabled = false; }
 });
 $('#clearData').addEventListener('click', () => {
   if ($('#clearData').dataset.armed) { ACCT = { library: {}, wishlist: [] }; saveAcct(); delete $('#clearData').dataset.armed; $('#clearNote').textContent = 'Cleared.'; route(); }
