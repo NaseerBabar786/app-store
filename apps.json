@@ -43,8 +43,8 @@
       },
       "banner": "images/live-tv.jpg",
       "featured": true,
-      "version": "1.9.88",
-      "updated": "2026-10-07",
+      "version": "1.10.22",
+      "updated": "2026-10-08",
       "platforms": [
         "Android TV"
       ],
