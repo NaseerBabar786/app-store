@@ -35,7 +35,7 @@
       "id": "live-tv",
       "name": "Cable TV",
       "type": "app",
-      "tagline": "Free live TV channels by country, on your phone or TV",
+      "tagline": "Free live TV channels by country, on your TV",
       "category": "Entertainment",
       "icon": {
         "image": "icons/live-tv.svg",
@@ -49,7 +49,7 @@
         "Android TV"
       ],
       "package": "com.naseerbabar.livetv",
-      "description": "Watch live channels that broadcasters stream publicly, sorted by country. Opens on Pakistani, Indian (Hindi, Urdu, Punjabi) and Canadian channels, with a channel grid, logos, search, favourites and a full-screen player. Made for Android TV, Google TV and Fire TV remotes (a phone version is coming), and can also play your own M3U playlist. The app tells you when a new version is out.",
+      "description": "Watch live channels that broadcasters stream publicly, sorted by country. Opens on Pakistani, Indian (Hindi, Urdu, Punjabi) and Canadian channels, with a channel grid, logos, search, favourites and a full-screen player. Made for Android TV, Google TV and Fire TV remotes, and can also play your own M3U playlist. The app tells you when a new version is out.",
       "whatsNew": "Version 1.9.48: Free Live TV is now called Cable TV. Same free app, channels, favourites and settings.",
       "links": {
         "android": "https://github.com/NaseerBabar786/live-tv-app/releases/latest/download/LiveTV.apk",
