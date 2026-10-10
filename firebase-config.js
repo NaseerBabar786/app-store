@@ -8,7 +8,7 @@ window.FIREBASE_CONFIG = {
   appId: "1:730558042157:web:a43db0d4c53884997b68a4"
 };
 
-// Email and password accounts are shared with the Cable TV app, so they live in its Firebase project.
+// Email and password accounts are shared with the NextGen Cable app, so they live in its Firebase project.
 window.TV_FIREBASE_CONFIG = {
   apiKey: "AIzaSyAukJcRHwIV_W3TKtr3_5XiVJZe-7491KE",
   authDomain: "live-tv-b2164.firebaseapp.com",
