@@ -50,7 +50,7 @@
       ],
       "package": "com.naseerbabar.livetv",
       "description": "Watch live channels that broadcasters stream publicly, sorted by country. Opens on Pakistani, Indian (Hindi, Urdu, Punjabi) and Canadian channels, with a channel grid, logos, search, favourites and a full-screen player. Made for Android TV, Google TV and Fire TV remotes, and can also play your own M3U playlist. The app tells you when a new version is out.",
-      "whatsNew": "Version 1.11.0: our own channels grouped by language (Urdu, Hindi, English, Punjabi) with new Shayari, Dramas, Gurbani, Movies Punjabi, Sufi Qawwali, Auto and Movie Trailers channels; Channel 1 with only new programmes and day and night news; Library with Added this week, checked videos and Favorites; no horror; ten new games plus Spades, Solitaire and Bubble Bazaar; a faster start on our channels; richer Weather graphics. Every channel is free in 1+List; Gold adds every mode, full screen, the Library, Games and more.",
+      "whatsNew": "Version 1.11.0: our own channels grouped by language (Urdu, Hindi, English, Punjabi) with new Shayari, Dramas, Gurbani, Movies Punjabi, Sufi Qawwali, Auto and Movie Trailers channels; Channel 1 with only new programmes and day and night news; Library with Added this week, checked videos and Favorites; no horror; ten new games plus Spades, Solitaire and Bubble Bazaar; a faster start on our channels; richer Weather graphics. Every channel and every feature is free for everyone.",
       "links": {
         "android": "https://github.com/NaseerBabar786/live-tv-app/releases/latest/download/LiveTV.apk",
         "web": "https://tv.bulkbazaar.ca"
