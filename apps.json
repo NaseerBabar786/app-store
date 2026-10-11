@@ -61,7 +61,7 @@
       "id": "iqra-quran",
       "name": "Iqra Quran",
       "type": "app",
-      "tagline": "Learn to read the Quran from alif, read it with audio, and memorize it",
+      "tagline": "Learn the Quran from alif, read it with audio in 62 languages, memorize it, learn Namaz and never miss Azan",
       "category": "Education",
       "icon": {
         "image": "icons/iqra-quran.svg",
@@ -75,8 +75,8 @@
         "Android",
         "Android TV"
       ],
-      "description": "A free Quran app for the whole family, in Urdu or English. Kids Qaida takes children step by step from the letters (alif, baa, taa) through zabar, zer, pesh, tanween, madd, jazm and tashdeed to whole Quran words and short surahs, with tap-to-hear cards, a Play all mode for learning together on the TV, quizzes and stars for each child. Read Quran has all 114 surahs in the Indo-Pak script with Urdu and English translation and recitation by famous qaris, including Al-Husary's slow teaching recitation. Hifz repeats each ayah as many times as you like with a pause to repeat it, lets you hide the text to test yourself, and plans your Sabaq, Sabqi and Manzil revision. No sign-in, no ads, works with TV remotes and updates itself.",
-      "whatsNew": "10 reading themes that are easy on the eyes (new: Sky, Soft grey e-ink, Midnight blue). Every colour can be changed: background, Quran text, headings, highlight, top bar, Qaida cards and the home buttons.",
+      "description": "A free Quran app for the whole family, in Urdu or English. Kids Qaida takes children step by step from the letters (alif, baa, taa) through zabar, zer, pesh, tanween, madd, jazm and tashdeed to whole Quran words and short surahs, with tap-to-hear cards, a Play all mode for learning together on the TV, quizzes and stars for each child. Read Quran has all 114 surahs in the Indo-Pak script with Urdu and English translation built in, 62 more translation languages to download, and recitation by famous qaris, including Al-Husary's slow teaching recitation. Hifz repeats each ayah as many times as you like with a pause to repeat it, lets you hide the text to test yourself, and plans your Sabaq, Sabqi and Manzil revision. Learn Namaz teaches the salat step by step with a teacher's voice, the duas, the rak'at of every prayer and 30 surahs to memorize with progress for each learner. Azan Clock shows today's prayer times for where you are and plays the Azan at each prayer, with a choice of muezzin. No sign-in, no ads, completely free, works with TV remotes and tells you when an update is ready.",
+      "whatsNew": "Learn Namaz (salat steps, duas, rak'at and 30 surahs to memorize), Azan Clock with prayer times and Azan alarms, 62 translation languages, a modern home screen, and a fix for the app freezing on Back.",
       "links": {
         "android": "https://github.com/NaseerBabar786/live-tv-app/releases/download/iqra-quran/IqraQuran.apk"
       },
