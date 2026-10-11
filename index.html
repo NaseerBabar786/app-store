@@ -280,7 +280,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
 <dialog class="auth" id="authDlg" aria-labelledby="authTitle">
   <form id="authForm" novalidate>
     <div class="ahd"><img src="icons/store-icon.svg" alt=""><h2 id="authTitle">Sign in</h2></div>
-    <p class="sub" id="authSub">Use the same email and password as the Cable TV app.</p>
+    <p class="sub" id="authSub">Use the same email and password as the NextGen Cable app.</p>
     <div class="seg" id="authSeg"><button type="button" data-mode="in" aria-pressed="true">Sign in</button><button type="button" data-mode="up" aria-pressed="false">Create account</button></div>
     <label id="nameRow" hidden>Your name<input id="authName" autocomplete="name" maxlength="60"></label>
     <label id="emailRow">Email<input id="authEmail" type="email" autocomplete="email" inputmode="email" required></label>
@@ -288,7 +288,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
     <label id="passRow">Password<input id="authPass" type="password" autocomplete="current-password" minlength="6" required></label>
     <div class="row2"><label class="show"><input type="checkbox" id="authShow">Show password</label><button type="button" class="link" id="forgotBtn">Forgot password?</button></div>
     <p class="msg" id="authMsg" role="alert"></p>
-    <p class="fine" id="authFine">One account works in App Bazaar and Cable TV.</p>
+    <p class="fine" id="authFine">One account works in App Bazaar and NextGen Cable.</p>
     <div class="acts"><button type="button" class="ghost" id="authCancel">Cancel</button><button type="submit" class="install" id="authGo">Sign in</button></div>
   </form>
 </dialog>
@@ -561,7 +561,7 @@ $('#acctBtn').addEventListener('click', e => { e.stopPropagation(); const open =
 document.addEventListener('click', e => { if (!e.target.closest('.acct')) closeMenu(); });
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
 // sign-in. Google accounts use App Bazaar's Firebase project (firebase-config.js). Email and password
-// accounts use the Cable TV app's project (TV_FIREBASE_CONFIG), so one email login works in both.
+// accounts use the NextGen Cable app's project (TV_FIREBASE_CONFIG), so one email login works in both.
 let FB = null, TV = null, USER = null, SRC = '', gUser = null, tUser = null, loadedUid = '';
 const loadScript = src => new Promise((ok, no) => { const s = document.createElement('script'); s.src = src; s.onload = ok; s.onerror = no; document.head.appendChild(s); });
 function renderWho() {
@@ -573,7 +573,7 @@ function renderWho() {
   $('#signinBtn').hidden = $('#emailBtn').hidden = !!USER; $('#signoutBtn').hidden = !USER; $('#pwBtn').hidden = SRC !== 'email';
   $('#signinNote').textContent = USER ? 'My apps and Wishlist are saved to your account.' : 'Sign in to keep My apps and Wishlist on all your devices.';
 }
-// Where the signed-in person's lists are kept: users/{uid} for Google, appBazaar/{uid} in the Cable TV project for email.
+// Where the signed-in person's lists are kept: users/{uid} for Google, appBazaar/{uid} in the NextGen Cable project for email.
 const cloudDoc = () => SRC === 'email' ? TV.db.collection('appBazaar').doc(USER.uid) : FB.db.collection('users').doc(USER.uid);
 function pushCloud() {
   if (!USER) return;
@@ -621,10 +621,10 @@ $('#signoutBtn').addEventListener('click', () => {
 // email and password dialog: sign in, create account, forgot password, change password
 let authMode = 'in';
 const AUTH_TEXT = {
-  in: ['Sign in', 'Use the same email and password as the Cable TV app.', 'Sign in'],
-  up: ['Create account', 'This account also works in the Cable TV app.', 'Create account'],
+  in: ['Sign in', 'Use the same email and password as the NextGen Cable app.', 'Sign in'],
+  up: ['Create account', 'This account also works in the NextGen Cable app.', 'Create account'],
   reset: ['Reset password', 'We’ll email you a link to choose a new password.', 'Send link'],
-  change: ['Change password', 'Your new password works in App Bazaar and Cable TV.', 'Change password'],
+  change: ['Change password', 'Your new password works in App Bazaar and NextGen Cable.', 'Change password'],
 };
 function authSet(mode) {
   authMode = mode;
@@ -641,7 +641,7 @@ function authSet(mode) {
   $('#forgotBtn').hidden = mode !== 'in' && mode !== 'reset';
   $('#forgotBtn').textContent = mode === 'reset' ? 'Back to sign in' : 'Forgot password?';
   $('#forgotBtn').parentElement.querySelector('.show').hidden = mode === 'reset';
-  $('#authFine').textContent = mode === 'up' ? 'Use at least 6 characters for your password.' : 'One account works in App Bazaar and Cable TV.';
+  $('#authFine').textContent = mode === 'up' ? 'Use at least 6 characters for your password.' : 'One account works in App Bazaar and NextGen Cable.';
   $('#authMsg').textContent = ''; $('#authMsg').className = 'msg';
 }
 function authOpen(mode) {

@@ -33,13 +33,13 @@
     },
     {
       "id": "live-tv",
-      "name": "Cable TV",
+      "name": "NextGen Cable",
       "type": "app",
       "tagline": "Free live TV channels by country, on your TV",
       "category": "Entertainment",
       "icon": {
-        "image": "icons/live-tv.svg",
-        "color": "#1E1E2E"
+        "image": "icons/live-tv.png",
+        "color": "#120830"
       },
       "banner": "images/live-tv.jpg",
       "featured": true,
