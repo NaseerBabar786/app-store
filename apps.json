@@ -84,6 +84,32 @@
       "package": "com.naseerbabar.iqraquran"
     },
     {
+      "id": "spark-weather",
+      "name": "Spark Weather",
+      "type": "app",
+      "tagline": "The weather now, hour by hour and 14 days ahead, with a live rain radar",
+      "category": "Weather",
+      "icon": {
+        "image": "icons/spark-weather.svg",
+        "color": "#0B3D91"
+      },
+      "banner": "images/spark-weather.jpg",
+      "featured": true,
+      "version": "1.0.0",
+      "updated": "2026-10-11",
+      "platforms": [
+        "Android",
+        "Android TV"
+      ],
+      "description": "A free weather app for your phone and your TV. See the weather where you are right now with a moving sky, feels like, wind, humidity, UV, air pressure and sunrise and sunset, and a heads-up when rain is about to start or stop. Hourly, 7 Days and 14 Days forecasts, a live rain radar map, weather news with pictures and weather videos. Add any city in the world and switch between them with one tap, in °C or °F. On phones there is a home-screen widget and an optional morning forecast notification. Colours follow the theme you pick. No ads, no payments, no sign-in, and it works with TV remotes. The same weather as in Cable TV.",
+      "whatsNew": "First version: the weather from Cable TV as its own app, with a home-screen widget and a morning forecast.",
+      "links": {
+        "android": "https://github.com/NaseerBabar786/live-tv-app/releases/download/spark-weather/SparkWeather.apk"
+      },
+      "tvCode": "tv.bulkbazaar.ca/weather",
+      "package": "com.naseerbabar.sparkweather"
+    },
+    {
       "id": "live-cam",
       "name": "Live Cam",
       "type": "app",
